@@ -155,6 +155,8 @@ root@archiso ~ # passwd
 <pre>
 root@archiso ~ # useradd  [username]  
 root@archiso ~ # passwd  [username]
+root@archiso ~ # mkdir /home/[username]
+root@archiso ~ # chown [username] /home/[username]
 </pre>
 
 - I would also recommend adding the user you created above to the SUDOers list by using the `visudo` command to open _sudo's_ configuration file. First we'll have to install _Vim_ using `pacman -S vim`. Once _Vim_ is installed, search for "## User privilege specification" and below the configuration for _root_ add your username: `<username> ALL = (ALL) ALL`
@@ -242,7 +244,7 @@ IDX LINK             TYPE               OPERATIONAL SETUP
 $ sudo  pacman  -Syu
 </pre>
 
-Installing VirtualBox Guest Addition
+Installing VirtualBox Guest Additions
 ---
 
 This is required if you want to mount shared folders using _vboxsf_ or would like to share your VM's clipboard with your host machine or vice-versa.
@@ -252,33 +254,34 @@ $ sudo  pacman  -S  virtualbox-guest-modules  virtualbox-guest-utils
 $ sudo  modprobe  -a  vboxguest  vboxsf  vboxvideo  
 </pre>
 
-
 Installing LXQT
 ---
 
 This step is only required if you want to install LXQT (which I prefer over XFCE). In case you would like to use XFCE, you move on to the next section which lists the steps for installing XFCE.
 
-Let's download and install the LXQT program group, OpenBox (LXQT's default window manager) and SDDM (LXQT's preferred display manager)
-<pre>
-$ pacman  -S  lxqt  openbox  sddm  
-</pre>
-
-Doing `startlxqt` at this point doesn't work (ofcourse, why make it so simple?). A bit of Googling led me to the following list of packages that need to e installed as well:
+- Let's download and install the LXQT program group, OpenBox (LXQT's default window manager), OpenBox Configuration Utility and SDDM (LXQT's preferred display manager)
 
 <pre>
-$ sudo  pacman  -S  obconf  xf86-video-fbdev  xorg-server  xorg-server-utils  xorg-xinit  \
-                    mesa  xf86-input-keyboard  xf86-input-mouse  xterm  ttf-dejavu  libxkbcommon  \
-                    libxkbcommon-x11
+$ pacman  -S  lxqt  openbox  obconf  sddm  
 </pre>
 
-Now add `exec startlxqt` to `/etc/X11/xinit/xinitrc` and 'cp /etc/X11/xinit/xinitrc ~./xinitrc'. Now generate configuration for the display manager and enable the display manager service.
+- We still need to install a couple of more packages before we can start LXQT. XFCE4 terminal and LXTerminal are optional, you can install another terminal of your choice.
 
 <pre>
-$ sudo  sddm  --example-config  >  /etc/sddm.conf  
-$ sudo  systemctl  enable  sddm.service  
+$ sudo  pacman  -S  xorg-server-utils  xorg-xinit  gnome-themes-standard  xfce4-terminal  lxterminal
 </pre>
 
-Now start LXQT by executing `startx`. Next time you restart your VM, you should see a graphical login manager and once you log in, LXQT should start automatically.
+- Now add `exec startlxqt` to the start of `/etc/X11/xinit/xinitrc` and `cp /etc/X11/xinit/xinitrc ~./xinitrc`.
+
+- Generate the configuration for the display manager (we need _root_ to do this) and enable the display manager service.
+
+<pre>
+$ su
+$ sddm  --example-config  >  /etc/sddm.conf  
+$ systemctl  enable  sddm.service  
+</pre>
+
+- Now you can start LXQT by executing `startx`. Next time you restart your VM, you should see a graphical login manager and once you log in, LXQT should start automatically.
 
 Installing XFCE
 ---

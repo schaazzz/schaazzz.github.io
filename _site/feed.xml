@@ -5,8 +5,8 @@
     <description></description>
     <link>schaazzz.github.io/</link>
     <atom:link href="schaazzz.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sat, 06 Jun 2015 00:00:16 +0800</pubDate>
-    <lastBuildDate>Sat, 06 Jun 2015 00:00:16 +0800</lastBuildDate>
+    <pubDate>Sat, 06 Jun 2015 02:51:15 +0800</pubDate>
+    <lastBuildDate>Sat, 06 Jun 2015 02:51:15 +0800</lastBuildDate>
     <generator>Jekyll v2.4.0</generator>
     
       <item>
@@ -219,6 +219,8 @@ root@archiso ~ # passwd
 &lt;pre&gt;
 root@archiso ~ # useradd  [username]  
 root@archiso ~ # passwd  [username]
+root@archiso ~ # mkdir /home/[username]
+root@archiso ~ # chown [username] /home/[username]
 &lt;/pre&gt;
 
 &lt;ul&gt;
@@ -320,7 +322,7 @@ IDX LINK             TYPE               OPERATIONAL SETUP
 $ sudo  pacman  -Syu
 &lt;/pre&gt;
 
-&lt;h2 id=&quot;installing-virtualbox-guest-addition&quot;&gt;Installing VirtualBox Guest Addition&lt;/h2&gt;
+&lt;h2 id=&quot;installing-virtualbox-guest-additions&quot;&gt;Installing VirtualBox Guest Additions&lt;/h2&gt;
 
 &lt;p&gt;This is required if you want to mount shared folders using &lt;em&gt;vboxsf&lt;/em&gt; or would like to share your VM’s clipboard with your host machine or vice-versa.&lt;/p&gt;
 
@@ -333,27 +335,40 @@ $ sudo  modprobe  -a  vboxguest  vboxsf  vboxvideo
 
 &lt;p&gt;This step is only required if you want to install LXQT (which I prefer over XFCE). In case you would like to use XFCE, you move on to the next section which lists the steps for installing XFCE.&lt;/p&gt;
 
-&lt;p&gt;Let’s download and install the LXQT program group, OpenBox (LXQT’s default window manager) and SDDM (LXQT’s preferred display manager)&lt;/p&gt;
-&lt;pre&gt;
-$ pacman  -S  lxqt  openbox  sddm  
-&lt;/pre&gt;
-
-&lt;p&gt;Doing &lt;code&gt;startlxqt&lt;/code&gt; at this point doesn’t work (ofcourse, why make it so simple?). A bit of Googling led me to the following list of packages that need to e installed as well:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Let’s download and install the LXQT program group, OpenBox (LXQT’s default window manager), OpenBox Configuration Utility and SDDM (LXQT’s preferred display manager)&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;pre&gt;
-$ sudo  pacman  -S  obconf  xf86-video-fbdev  xorg-server  xorg-server-utils  xorg-xinit  \
-                    mesa  xf86-input-keyboard  xf86-input-mouse  xterm  ttf-dejavu  libxkbcommon  \
-                    libxkbcommon-x11
+$ pacman  -S  lxqt  openbox  obconf  sddm  
 &lt;/pre&gt;
 
-&lt;p&gt;Now add &lt;code&gt;exec startlxqt&lt;/code&gt; to &lt;code&gt;/etc/X11/xinit/xinitrc&lt;/code&gt; and ‘cp /etc/X11/xinit/xinitrc ~./xinitrc’. Now generate configuration for the display manager and enable the display manager service.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;We still need to install a couple of more packages before we can start LXQT. XFCE4 terminal and LXTerminal are optional, you can install another terminal of your choice.&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;pre&gt;
-$ sudo  sddm  --example-config  &amp;gt;  /etc/sddm.conf  
-$ sudo  systemctl  enable  sddm.service  
+$ sudo  pacman  -S  xorg-server-utils  xorg-xinit  gnome-themes-standard  xfce4-terminal  lxterminal
 &lt;/pre&gt;
 
-&lt;p&gt;Now start LXQT by executing &lt;code&gt;startx&lt;/code&gt;. Next time you restart your VM, you should see a graphical login manager and once you log in, LXQT should start automatically.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Now add &lt;code&gt;exec startlxqt&lt;/code&gt; to the start of &lt;code&gt;/etc/X11/xinit/xinitrc&lt;/code&gt; and &lt;code&gt;cp /etc/X11/xinit/xinitrc ~./xinitrc&lt;/code&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Generate the configuration for the display manager (we need &lt;em&gt;root&lt;/em&gt; to do this) and enable the display manager service.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;
+$ su
+$ sddm  --example-config  &amp;gt;  /etc/sddm.conf  
+$ systemctl  enable  sddm.service  
+&lt;/pre&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Now you can start LXQT by executing &lt;code&gt;startx&lt;/code&gt;. Next time you restart your VM, you should see a graphical login manager and once you log in, LXQT should start automatically.&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;h2 id=&quot;installing-xfce&quot;&gt;Installing XFCE&lt;/h2&gt;
 
