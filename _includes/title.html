@@ -1,22 +1,36 @@
 <div id="title">
   <h1>
+    <a id="sitename" href="{{site.baseurl}}">Shahzeb Ihsan</a>
+
+    <br>
+
     {% unless site.git == "" %}
 		  <a id="git-ic" href="{{site.git}}"><i class="fa fa-github"></i></a>
     {% endunless %}
 
-    {% unless site.stackoverflow == "" %}
-      <a id="so-ic" href="{{site.stackoverflow}}"><i class="fa fa-stack-overflow"></i></a>
+    {% unless site.google-plus == "" %}
+      <a id="so-ic" href="{{site.google-plus}}"><i class="fa fa-google-plus"></i></a>
+    {% endunless %}
+
+    {% unless site.linkedin == "" %}
+      <a id="so-ic" href="{{site.linkedin}}"><i class="fa fa-linkedin"></i></a>
+    {% endunless %}
+
+    {% unless site.flickr == "" %}
+      <a id="so-ic" href="{{site.flickr}}"><i class="fa fa-flickr"></i></a>
     {% endunless %}
 
     {% unless site.twitter == "" %}
       <a id="so-ic" href="{{site.twitter}}"><i class="fa fa-twitter"></i></a>
     {% endunless %}
 
-    <a id="sitename" href="{{site.baseurl}}">Shahzeb Ihsan</a>
+    {% unless site.stackoverflow == "" %}
+      <a id="so-ic" href="{{site.stackoverflow}}"><i class="fa fa-stack-overflow"></i></a>
+    {% endunless %}
   </h1>
 
   <!-- Add something about you in p tag-->
-  <p>Write something about you here...</p>
+  <p>"The reasonable man adapts himself to the world; the unreasonable man persists in trying to adapt the world to himself. Therefore, all progress depends on the unreasonable man." -- George Bernard Shaw</p>
   <hr/>
 
   {% include nav-links.html %}

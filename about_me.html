@@ -1,0 +1,57 @@
+---
+title: about_me
+permalink: "about_me/index.html"
+layout: default
+---
+
+<div class="resume row">
+  <div class="col-md-6 post-nav">
+    <div id="about_me">
+      <h2>About me...</h2>
+      <p>Embedded Systems developer by profession (11 years and counting...), currently employed in a German automotive company's R&D centre in Singapore.</p>
+      <p>These days, in my spare time, all I do is spend time with my four month old son. Besides that, I <strike>used to</strike> love gaming, <a href="https://www.goodreads.com/review/list/40670907-shahzeb-ihsan?shelf=read">reading</a> and <a href = "{{site.flickr}}">photography</a>.</p>
+      <p>I consider myself a perpetual noob, always looking to learn something new. My <a href = "{{site.github}}">GitHub</a> account is a dumping ground for my work with anything (language, tech, platform etc.) that catches my fancy, which at the moment, seems to be web and mobile app development.</p>
+    </div>
+
+    <div id="skills">
+      <h2>Skills</h2>
+      <h4 class="text-muted">What technologies you use:</h4>
+        <p> - <span>Embedded Systems:</span> System Design & Architecture, Deeply Embedded Systems, Compute Intensitve Embedded Systems, Control Systems</p>
+        <p> - <span>Embedded OSes, RTOSes:</span> QNX, FreeRTOS, Embedded Linux, OSEK/VDX (Autosar), Androud</p>
+        <p> - <span>Languages:</span> C/C++, Assembler, Java</p>
+        <p> - <span>Scripting:</span> Python, JavaScript, Bash, Perl, Ruby</p>
+        <p> - <span>Others:</span> Node.js, Ruby on Rails, CherryPy, Jinja2, Flask, Django, Adobe Air, Chrome/Firefox Extensions/Apps, Android
+    </div>
+  </div>
+
+  <div class="col-md-6 post-nav">
+    <div id="experience">
+      <h2>Experience</h2>
+      <p> Some of the technologies/industries I've worked with over the years include SOCs/ASICs, hard drives, automotive systems, secure Embedded Systems, consumer electronics, communication devices, telecommunication equipment and industrial automation.</p>
+      <p>links to projects will be added <a href="{{ "/projects" | prepend:site.baseurl }}">here</a>.</p>
+    </div>
+
+    <div id="contacts">
+      <h2>Contacts</h2>
+        {% unless site.twitter == "" %}
+          <a id="so-ic" href="{{site.twitter}}"><i class="fa fa-twitter"></i></a>
+        {% endunless %}
+
+        {% unless site.google-plus == "" %}
+          &nbsp;&nbsp;&nbsp;<a id="so-ic" href="{{site.google-plus}}"><i class="fa fa-google-plus"></i></a>
+        {% endunless %}
+
+        {% unless site.linkedin == "" %}
+          &nbsp;&nbsp;&nbsp;<a id="so-ic" href="{{site.linkedin}}"><i class="fa fa-linkedin"></i></a>
+        {% endunless %}
+
+        {% unless site.git == "" %}
+          &nbsp;&nbsp;&nbsp;<a id="git-ic" href="{{site.git}}"><i class="fa fa-github"></i></a>
+        {% endunless %}
+
+        {% unless site.flickr == "" %}
+          &nbsp;&nbsp;&nbsp;<a id="so-ic" href="{{site.flickr}}"><i class="fa fa-flickr"></i></a>
+        {% endunless %}
+    </div>
+  </div>
+</div>

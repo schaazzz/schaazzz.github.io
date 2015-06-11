@@ -3,7 +3,17 @@ layout: welcome
 
 ---
 
- <div class="text-center">
-  <img class="pln-img" src="https://c1.staticflickr.com/9/8083/8430589948_afbd56afde_z.jpg" >
+<h2>Recent posts...</h2>
+<dl class="posts">
+    {% for post in site.posts %}
+        {% unless post.reference or post.step %}
+            <dt>
+            <h3><a class="post-link" href="{{site.baseurl}}{{ post.url }}">{{ post.title }}</a></h3>
+            </dt>
+        {% endunless %}
+    {% endfor %}
+</dl>
+
+<div class="text-center">
   <p>contact me <a href="mailto:shahzeb.ihsan+blog@example.com">shahzeb (dot) ihsan (at) gmail (dot) com</a></p>
 </div>

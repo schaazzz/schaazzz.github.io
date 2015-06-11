@@ -6,9 +6,12 @@ paginate: 3 #articles per page
 paginate_path: /blog/page:num #makes pagination working
 
 #contacts
-git: "https://github.com/schaazzz"  #Add your github url here.
-twitter: "https://twitter.com/shahzebihsan"  #Add your twitter url here.
-stackoverflow: "http://stackoverflow.com/users/2463246/schaazzz" #Add your stackoverflow url here.
+git: "https://github.com/schaazzz"
+twitter: "https://twitter.com/shahzebihsan"
+stackoverflow: "http://stackoverflow.com/users/2463246/schaazzz"
+flickr: "https://www.flickr.com/photos/schaazzz"
+linkedin: "https://sg.linkedin.com/in/shahzebihsan"
+google-plus: "https://plus.google.com/+ShahzebIhsan/posts"
 
 #disqus comment
 disqus:
