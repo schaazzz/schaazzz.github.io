@@ -3,14 +3,12 @@ layout: welcome
 
 ---
 
-<h2>Recent posts...</h2>
+<a href = "{{ "/blog" | prepend:site.baseurl }}"><h2><u>Recent posts...</u></h2></a>
 <dl class="posts">
     {% for post in site.posts %}
-        {% unless post.reference or post.step %}
-            <dt>
+        <dt>
             <h3><a class="post-link" href="{{site.baseurl}}{{ post.url }}">{{ post.title }}</a></h3>
-            </dt>
-        {% endunless %}
+        </dt>
     {% endfor %}
 </dl>
 
