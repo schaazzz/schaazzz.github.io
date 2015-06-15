@@ -47,13 +47,8 @@
     
       <a id="so-ic" href="https://twitter.com/shahzebihsan"><i class="fa fa-twitter"></i></a>
     
-
-    
-      <a id="so-ic" href="http://stackoverflow.com/users/2463246/schaazzz"><i class="fa fa-stack-overflow"></i></a>
-    
   </h1>
 
-  <!-- Add something about you in p tag-->
   <p>"The reasonable man adapts himself to the world; the unreasonable man persists in trying to adapt the world to himself. Therefore, all progress depends on the unreasonable man." -- George Bernard Shaw</p>
   <hr/>
 
@@ -200,9 +195,9 @@
 	}());
 </script>
 <!-- /disqus comment counter -->
-		
-		
-		
+
+
+
 <!-- google analytics -->
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -215,6 +210,29 @@
 
 </script>
 <!-- /google analytics -->
+
+<script>
+    init_jssor_slider1 = function (containerId) {
+        var options = {
+            $AutoPlay: false,                                   //[Optional] Whether to auto play, to enable slideshow, this option must be set to true, default value is false
+            $SlideDuration: 500,                                //[Optional] Specifies default duration (swipe) for slide in milliseconds, default value is 500
+
+            $ThumbnailNavigatorOptions: {                       //[Optional] Options to specify and enable thumbnail navigator or not
+                $Class: $JssorThumbnailNavigator$,              //[Required] Class to create thumbnail navigator instance
+                $ChanceToShow: 2,                               //[Required] 0 Never, 1 Mouse Over, 2 Always
+
+                $Lanes: 2,                                      //[Optional] Specify lanes to arrange thumbnails, default value is 1
+                $SpacingX: 14,                                   //[Optional] Horizontal space between each thumbnail in pixel, default value is 0
+                $SpacingY: 12,                                   //[Optional] Vertical space between each thumbnail in pixel, default value is 0
+                $DisplayPieces: 6,                             //[Optional] Number of pieces to display, default value is 1
+                $ParkingPosition: 156,                          //[Optional] The offset position to park thumbnail
+                $Orientation: 2                                //[Optional] Orientation to arrange thumbnails, 1 horizental, 2 vertical, default value is 1
+            }
+        };
+
+        var jssor_slider1 = new $JssorSlider$(containerId, options);
+    };
+</script>
 
   </body>
 </html>

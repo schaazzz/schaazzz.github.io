@@ -18,6 +18,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
   </head>
   <body>
+    <script src="{{ "/public/javascripts/jquery.min.js" | prepend:site.baseurl }}"></script>
+    <script src="{{ "/public/javascripts/bootstrap.min.js" | prepend:site.baseurl }}"></script>
+    <script src="{{ "/public/javascripts/jssor.slider.mini.js" | prepend:site.baseurl }}"></script>
+    {% include scripts.html %}
     <div class="wrapper">
         <section>
             {% include title.html %}
@@ -25,8 +29,5 @@
             {{ content }}
         </section>
     </div>
-    <script src="{{ "/public/javascripts/jquery.min.js" | prepend:site.baseurl }}"></script>
-    <script src="{{ "/public/javascripts/bootstrap.min.js" | prepend:site.baseurl }}"></script>
-    {% include scripts.html %}
   </body>
 </html>
