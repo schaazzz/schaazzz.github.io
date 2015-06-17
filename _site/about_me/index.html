@@ -178,6 +178,7 @@
         var options = {
             $AutoPlay: false,                                   //[Optional] Whether to auto play, to enable slideshow, this option must be set to true, default value is false
             $SlideDuration: 500,                                //[Optional] Specifies default duration (swipe) for slide in milliseconds, default value is 500
+            $FillMode: 1,
 
             $ThumbnailNavigatorOptions: {                       //[Optional] Options to specify and enable thumbnail navigator or not
                 $Class: $JssorThumbnailNavigator$,              //[Required] Class to create thumbnail navigator instance
@@ -188,7 +189,9 @@
                 $SpacingY: 12,                                   //[Optional] Vertical space between each thumbnail in pixel, default value is 0
                 $DisplayPieces: 6,                             //[Optional] Number of pieces to display, default value is 1
                 $ParkingPosition: 156,                          //[Optional] The offset position to park thumbnail
-                $Orientation: 2                                //[Optional] Orientation to arrange thumbnails, 1 horizental, 2 vertical, default value is 1
+                $Orientation: 2,                                //[Optional] Orientation to arrange thumbnails, 1 horizental, 2 vertical, default value is 1
+                $Scale: false,
+                $AutoCenter: 0
             }
         };
 
