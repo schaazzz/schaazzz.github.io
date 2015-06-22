@@ -3,17 +3,19 @@ layout: welcome
 
 ---
 
-<a href = "{{ "/blog" | prepend:site.baseurl }}"><h2><u>Recent posts...</u></h2></a>
+<a id="so-ic" href="{{site.flickr}}"><custom0>My Photography&nbsp;&nbsp;</custom0><i class="fa fa-flickr"></i></a>
+{% include image-slider.html %}
+<hr>
+<a id="so-ic" href="{{ "/blog" | prepend:site.baseurl }}"><custom0>Recent Blog Posts&nbsp;&nbsp;</custom0></a>
 <dl class="posts">
-    {% for post in site.posts %}
+    {% for post in site.posts limit:3 %}
         <dt>
             <h3><a class="post-link" href="{{site.baseurl}}{{ post.url }}">{{ post.title }}</a></h3>
         </dt>
+        <dd>{{ post.excerpt }}</dd><br/>
     {% endfor %}
 </dl>
-
-{% include image-slider.html %}
-
+<hr>
 <div class="text-center">
   <p>contact me <a href="mailto:shahzeb.ihsan+blog@example.com">shahzeb (dot) ihsan (at) gmail (dot) com</a></p>
 </div>

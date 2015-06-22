@@ -1,33 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>schaazzz.github.io/testtest</loc>
-    <lastmod>2014-11-30T00:00:00+08:00</lastmod>
+    <loc>schaazzz.github.ioschaazzz.github.io/first-post-site-ready</loc>
+    <lastmod>2015-06-22T00:00:00+08:00</lastmod>
   </url>
   <url>
-    <loc>schaazzz.github.io/introducing-autm-rb</loc>
-    <lastmod>2014-11-30T00:00:00+08:00</lastmod>
+    <loc>schaazzz.github.ioschaazzz.github.io/about_me/</loc>
   </url>
   <url>
-    <loc>schaazzz.github.io/css</loc>
-    <lastmod>2014-11-30T00:00:00+08:00</lastmod>
+    <loc>schaazzz.github.ioschaazzz.github.io/archive/</loc>
   </url>
   <url>
-    <loc>schaazzz.github.io/about_me/</loc>
+    <loc>schaazzz.github.ioschaazzz.github.io/blog/</loc>
   </url>
   <url>
-    <loc>schaazzz.github.io/archive/</loc>
+    <loc>schaazzz.github.ioschaazzz.github.io/</loc>
   </url>
   <url>
-    <loc>schaazzz.github.io/blog/</loc>
+    <loc>schaazzz.github.ioschaazzz.github.io/projects/</loc>
   </url>
   <url>
-    <loc>schaazzz.github.io/</loc>
-  </url>
-  <url>
-    <loc>schaazzz.github.io/projects/</loc>
-  </url>
-  <url>
-    <loc>schaazzz.github.io/tags/</loc>
+    <loc>schaazzz.github.ioschaazzz.github.io/tags/</loc>
   </url>
 </urlset>
