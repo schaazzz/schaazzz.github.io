@@ -5,16 +5,17 @@
     <description></description>
     <link>schaazzz.github.io/</link>
     <atom:link href="schaazzz.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 22 Jun 2015 13:06:03 +0800</pubDate>
-    <lastBuildDate>Mon, 22 Jun 2015 13:06:03 +0800</lastBuildDate>
+    <pubDate>Tue, 23 Jun 2015 13:42:34 +0800</pubDate>
+    <lastBuildDate>Tue, 23 Jun 2015 13:42:34 +0800</lastBuildDate>
     <generator>Jekyll v2.4.0</generator>
     
       <item>
         <title>First Post - Blog &amp; Site Finally Ready</title>
-        <description>&lt;p&gt;Not too much write here yet, will come back soon…&lt;/p&gt;
+        <description>&lt;p&gt;I finally have a shiny new Jekyll based Github blog. &lt;!--more--&gt;&lt;img class=&quot;emoji&quot; title=&quot;:smile:&quot; alt=&quot;:smile:&quot; src=&quot;https://assets.github.com/images/icons/emoji/unicode/1f604.png&quot; height=&quot;20&quot; width=&quot;20&quot; align=&quot;absmiddle&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;In the meantime, you can check me out on &lt;a href=&quot;https://www.flickr.com/photos/schaazzz/&quot;&gt;Flickr&lt;/a&gt; or &lt;a href=&quot;https://github.com/schaazzz&quot;&gt;Github&lt;/a&gt;.
-&lt;!--more--&gt;&lt;/p&gt;
+&lt;p&gt;The theme I’m using is &lt;a href=&quot;http://railsr.github.io/introducing-autm-rb/&quot;&gt;Autm-rb&lt;/a&gt; and the image slider on the &lt;a href=&quot;http://schaazzz.github.io&quot;&gt;homepage&lt;/a&gt; is &lt;a href=&quot;http://www.jssor.com/&quot;&gt;JSSOR&lt;/a&gt;. I’m using images directly from a &lt;a href=&quot;https://www.flickr.com/photos/schaazzz/sets/72157622960195643&quot;&gt;Flickr set&lt;/a&gt; which &lt;em&gt;I&lt;/em&gt; think contains the best pictures I’ve taken so far. Since the set in question contains quite a few pictures, manually retrieving the URLs for thumbnails and images would’ve been a tad tedious, so I wrote a script using &lt;a href=&quot;http://stuvel.eu/media/flickrapi-docs/documentation/&quot;&gt;this Flickr API&lt;/a&gt; to do this, you can find this script &lt;a href=&quot;https://github.com/schaazzz/script_magic/blob/master/get_photo_urls_from_flickr_set.py&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;I’ll cover how I integrated JSSOR into Jekyll/Autm-rb in another blog post.&lt;/p&gt;
 </description>
         <pubDate>Mon, 22 Jun 2015 00:00:00 +0800</pubDate>
         <link>schaazzz.github.io/first-post-site-ready</link>

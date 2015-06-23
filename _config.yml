@@ -1,6 +1,7 @@
 baseurl: "" # The subpath of your site. Use "" if you're hosting a blog at the root level.
 url: "schaazzz.github.io" # the base hostname & protocol for your site.
 title: "Shahzeb Ihsan"
+excerpt_separator: <!--more-->
 
 paginate: 3 #articles per page
 paginate_path: /blog/page:num #makes pagination working
@@ -20,8 +21,10 @@ disqus:
 #google analytics
 google:
     tracking-id: "UA-37976692-2" #paste your tracking id here
+
 gems:
     - jekyll-sitemap
+    - jemoji
 
 # This is used by feed.xml. Uncomment if you want to use it.
 # description: "..."
