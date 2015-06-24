@@ -138,3 +138,8 @@ startx and it's working.
 ... systemctl enable lxdm.service
 
 --------------------
+
+**Add user**
+adduser <username>
+passwd <username>
+visudo --> search for "# User privilege specification" and add "<username> ALL = (ALL) ALL"

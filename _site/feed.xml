@@ -5,9 +5,37 @@
     <description></description>
     <link>schaazzz.github.io/</link>
     <atom:link href="schaazzz.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Wed, 24 Jun 2015 19:46:53 +0800</pubDate>
-    <lastBuildDate>Wed, 24 Jun 2015 19:46:53 +0800</lastBuildDate>
+    <pubDate>Thu, 25 Jun 2015 06:17:53 +0800</pubDate>
+    <lastBuildDate>Thu, 25 Jun 2015 06:17:53 +0800</lastBuildDate>
     <generator>Jekyll v2.4.0</generator>
+    
+      <item>
+        <title>Configuring Your Arch Linux VM for Development</title>
+        <description>&lt;p&gt;python /mnt/schaazzz/projects/sandbox.local/get-pip.py 
+sudo python /mnt/schaazzz/projects/sandbox.local/get-pip.py&lt;/p&gt;
+</description>
+        <pubDate>Fri, 26 Jun 2015 00:00:00 +0800</pubDate>
+        <link>schaazzz.github.io/configuring-archlinux-vm-dev-env</link>
+        <guid isPermaLink="true">schaazzz.github.io/configuring-archlinux-vm-dev-env</guid>
+        
+        <category>virtualbox,</category>
+        
+        <category>virtualmachine,</category>
+        
+        <category>archlinux,</category>
+        
+        <category>linux,</category>
+        
+        <category>development,</category>
+        
+        <category>python,</category>
+        
+        <category>ruby,</category>
+        
+        <category>ssh</category>
+        
+        
+      </item>
     
       <item>
         <title>Installing Arch Linux on VirtualBox</title>
@@ -144,6 +172,11 @@ startx and it’s working.
 &lt;p&gt;… systemctl enable lxdm.service&lt;/p&gt;
 
 &lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;Add user&lt;/strong&gt;
+adduser &lt;username&gt;
+passwd &lt;username&gt;
+visudo --&amp;gt; search for &quot;# User privilege specification&quot; and add &quot;&lt;username&gt; ALL = (ALL) ALL&quot;&lt;/username&gt;&lt;/username&gt;&lt;/username&gt;&lt;/p&gt;
 </description>
         <pubDate>Tue, 23 Jun 2015 00:00:00 +0800</pubDate>
         <link>schaazzz.github.io/installing-arch-on-vbox</link>
