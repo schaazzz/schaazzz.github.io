@@ -9,11 +9,13 @@ layout: welcome
 <a id="so-ic" href="{{ "/blog" | prepend:site.baseurl }}"><custom0>Recent Blog Posts&nbsp;&nbsp;</custom0></a>
 <dl class="posts">
     {% for post in site.posts limit:3 %}
+        ---
         <dt>
             <h3><a class="post-link" href="{{site.baseurl}}{{ post.url }}">{{ post.title }}</a></h3>
         </dt>
-        <dd>{{ post.excerpt }}</dd><br/>
+        <dd>{{ post.excerpt }}</dd>
     {% endfor %}
+    ---
 </dl>
 <hr>
 <div class="text-center">
