@@ -5,9 +5,162 @@
     <description></description>
     <link>schaazzz.github.io/</link>
     <atom:link href="schaazzz.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 23 Jun 2015 14:12:45 +0800</pubDate>
-    <lastBuildDate>Tue, 23 Jun 2015 14:12:45 +0800</lastBuildDate>
+    <pubDate>Wed, 24 Jun 2015 19:02:35 +0800</pubDate>
+    <lastBuildDate>Wed, 24 Jun 2015 19:02:35 +0800</lastBuildDate>
     <generator>Jekyll v2.4.0</generator>
+    
+      <item>
+        <title>Installing Arch Linux on VirtualBox</title>
+        <description>&lt;p&gt;No installer bundled with the Arch Linux ISO, has to be installed manually. &lt;!--more--&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;… no packages included, working internet connection required during installation&lt;/p&gt;
+
+&lt;p&gt;… lsblk&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/public/images/lsblk_output.jpg&quot; alt=&quot;&#39;lsblk&#39;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;… parted /dev/sda print&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/public/images/parted_print_output.jpg&quot; alt=&quot;&#39;lsblk&#39;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;… parted /dev/sda&lt;/p&gt;
+
+&lt;p&gt;… (parted) mklabel msdos&lt;/p&gt;
+
+&lt;p&gt;… mkpart primary ext4 1MiB 200MiB&lt;/p&gt;
+
+&lt;p&gt;… set 1 boot on&lt;/p&gt;
+
+&lt;p&gt;… mkpart primary linux-swap 210MiB 1177MiB&lt;/p&gt;
+
+&lt;p&gt;… mkpart primary ext4 1024MiB 100%&lt;/p&gt;
+
+&lt;p&gt;… mkfs.ext4 /dev/sda1&lt;/p&gt;
+
+&lt;p&gt;… mkfs.ext4 /dev/sda3&lt;/p&gt;
+
+&lt;p&gt;… Activate swap&lt;/p&gt;
+
+&lt;p&gt;…… mkswap /dev/sda2&lt;/p&gt;
+
+&lt;p&gt;…… swapon /dev/sda2&lt;/p&gt;
+
+&lt;p&gt;… mount /dev/sda3 /mnt&lt;/p&gt;
+
+&lt;p&gt;… mkdir -p /mnt/boot&lt;/p&gt;
+
+&lt;p&gt;… mount /dev/sda1 /mnt/boot&lt;/p&gt;
+
+&lt;p&gt;… Install the base system&lt;/p&gt;
+
+&lt;p&gt;…… pacstrap -i /mnt base base-devel&lt;/p&gt;
+
+&lt;p&gt;… genfstab -U -p /mnt » /mnt/etc/fstab&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;chroot into your newly installed base system&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;…… arch-chroot /mnt /bin/bash&lt;/p&gt;
+
+&lt;p&gt;… passwd&lt;/p&gt;
+
+&lt;p&gt;… pacman -S grub os-prober&lt;/p&gt;
+
+&lt;p&gt;… grub-install –recheck /dev/sda&lt;/p&gt;
+
+&lt;p&gt;… grub-mkconfig -o /boot/grub/grub.cfg&lt;/p&gt;
+
+&lt;p&gt;… exit&lt;/p&gt;
+
+&lt;p&gt;… umount -R /mnt&lt;/p&gt;
+
+&lt;p&gt;… reboot&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;Network Configuration&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;… nano /etc/systemd/enp0s3.network&lt;/p&gt;
+
+&lt;p&gt;… nano /etc/systemd/enp0s8.network&lt;/p&gt;
+
+&lt;p&gt;… nano /etc/resolv.conf&lt;/p&gt;
+
+&lt;p&gt;… systemctl enable dhcpcd@enp0s3.service&lt;/p&gt;
+
+&lt;p&gt;… systemctl enable dhcpcd@enp0s8.service&lt;/p&gt;
+
+&lt;p&gt;… systemctl restart systemd-networkd&lt;/p&gt;
+
+&lt;p&gt;… systemctl status systemd-networkd&lt;/p&gt;
+
+&lt;p&gt;… networkctl&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;Installing VirtualBox Guest Addition&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;… pacman -S virtualbox-guest-modules virtualbox-guest-utils&lt;/p&gt;
+
+&lt;p&gt;… modprobe -a vboxguest vboxsf vboxvideo&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;Installing LXQT&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;… pacman -S lxqt&lt;/p&gt;
+
+&lt;p&gt;… pacman -S openbox&lt;/p&gt;
+
+&lt;p&gt;… pacman -S sddm&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;————-&amp;gt; ???
+pacman -S lxqt openbox obconf xf86-video-fbdev xorg-server xorg-server-utils xorg-xinit mesa xf86-input-keyboard xf86-input-mouse xterm ttf-dejavu libxkbcommon libxkbcommon-x11
+Then nano .xinitrc and type “exec startlxqt” save
+startx and it’s working.
+&amp;lt;————-&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;… nano /etc/X11/xinit/xinitrc ==&amp;gt; add “exec startlxqt”&lt;/p&gt;
+
+&lt;p&gt;… cp /etc/X11/xinit/xinitrc ~/.xinitrc&lt;/p&gt;
+
+&lt;p&gt;… sddm –example-config &amp;gt; /etc/sddm.conf&lt;/p&gt;
+
+&lt;p&gt;… systemctl enable sddm.service&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;Installing XFCE&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;… pacman -S xfce4 xorg lxdm&lt;/p&gt;
+
+&lt;p&gt;… systemctl enable lxdm.service&lt;/p&gt;
+
+&lt;hr /&gt;
+</description>
+        <pubDate>Tue, 23 Jun 2015 00:00:00 +0800</pubDate>
+        <link>schaazzz.github.io/installing-arch-in-vbox</link>
+        <guid isPermaLink="true">schaazzz.github.io/installing-arch-in-vbox</guid>
+        
+        <category>virtualbox,</category>
+        
+        <category>virtualmachine,</category>
+        
+        <category>archlinux,</category>
+        
+        <category>linux,</category>
+        
+        <category>development</category>
+        
+        
+      </item>
     
       <item>
         <title>First Post - Blog &amp; Site Finally Ready</title>
