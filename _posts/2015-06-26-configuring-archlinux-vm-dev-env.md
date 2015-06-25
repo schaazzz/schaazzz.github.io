@@ -5,5 +5,6 @@ author: Shahzeb Ihsan
 tags: virtualbox, virtualmachine, archlinux, linux, development, python, ruby, ssh
 ---
 
-python /mnt/schaazzz/projects/sandbox.local/get-pip.py 
-sudo python /mnt/schaazzz/projects/sandbox.local/get-pip.py
+wget https://bootstrap.pypa.io/get-pip.py  
+sudo python /mnt/schaazzz/projects/sandbox.local/get-pip.py  
+sudo python -m pip install <package>  

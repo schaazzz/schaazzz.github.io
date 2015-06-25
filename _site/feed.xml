@@ -5,14 +5,15 @@
     <description></description>
     <link>schaazzz.github.io/</link>
     <atom:link href="schaazzz.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Thu, 25 Jun 2015 06:17:53 +0800</pubDate>
-    <lastBuildDate>Thu, 25 Jun 2015 06:17:53 +0800</lastBuildDate>
+    <pubDate>Thu, 25 Jun 2015 09:54:20 +0800</pubDate>
+    <lastBuildDate>Thu, 25 Jun 2015 09:54:20 +0800</lastBuildDate>
     <generator>Jekyll v2.4.0</generator>
     
       <item>
         <title>Configuring Your Arch Linux VM for Development</title>
-        <description>&lt;p&gt;python /mnt/schaazzz/projects/sandbox.local/get-pip.py 
-sudo python /mnt/schaazzz/projects/sandbox.local/get-pip.py&lt;/p&gt;
+        <description>&lt;p&gt;wget https://bootstrap.pypa.io/get-pip.py&lt;br /&gt;
+sudo python /mnt/schaazzz/projects/sandbox.local/get-pip.py&lt;br /&gt;
+sudo python -m pip install &lt;package&gt;  &lt;/package&gt;&lt;/p&gt;
 </description>
         <pubDate>Fri, 26 Jun 2015 00:00:00 +0800</pubDate>
         <link>schaazzz.github.io/configuring-archlinux-vm-dev-env</link>
@@ -43,140 +44,93 @@ sudo python /mnt/schaazzz/projects/sandbox.local/get-pip.py&lt;/p&gt;
 
 &lt;hr /&gt;
 
-&lt;p&gt;… no packages included, working internet connection required during installation&lt;/p&gt;
-
-&lt;p&gt;… lsblk&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/public/images/lsblk_output.jpg&quot; alt=&quot;&#39;lsblk&#39;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;… parted /dev/sda print&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/public/images/parted_print_output.jpg&quot; alt=&quot;&#39;lsblk&#39;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;… parted /dev/sda&lt;/p&gt;
-
-&lt;p&gt;… (parted) mklabel msdos&lt;/p&gt;
-
-&lt;p&gt;… mkpart primary ext4 1MiB 200MiB&lt;/p&gt;
-
-&lt;p&gt;… set 1 boot on&lt;/p&gt;
-
-&lt;p&gt;… mkpart primary linux-swap 210MiB 1177MiB&lt;/p&gt;
-
-&lt;p&gt;… mkpart primary ext4 1024MiB 100%&lt;/p&gt;
-
-&lt;p&gt;… mkfs.ext4 /dev/sda1&lt;/p&gt;
-
-&lt;p&gt;… mkfs.ext4 /dev/sda3&lt;/p&gt;
-
-&lt;p&gt;… Activate swap&lt;/p&gt;
-
-&lt;p&gt;…… mkswap /dev/sda2&lt;/p&gt;
-
-&lt;p&gt;…… swapon /dev/sda2&lt;/p&gt;
-
-&lt;p&gt;… mount /dev/sda3 /mnt&lt;/p&gt;
-
-&lt;p&gt;… mkdir -p /mnt/boot&lt;/p&gt;
-
-&lt;p&gt;… mount /dev/sda1 /mnt/boot&lt;/p&gt;
-
-&lt;p&gt;… Install the base system&lt;/p&gt;
-
-&lt;p&gt;…… pacstrap -i /mnt base base-devel&lt;/p&gt;
-
-&lt;p&gt;… genfstab -U -p /mnt » /mnt/etc/fstab&lt;/p&gt;
+&lt;p&gt;… no packages included, working internet connection required during installation&lt;br /&gt;
+… lsblk&lt;br /&gt;
+&lt;img src=&quot;/public/images/lsblk_output.jpg&quot; alt=&quot;&#39;lsblk&#39;&quot; /&gt;&lt;br /&gt;
+… parted /dev/sda print&lt;br /&gt;
+&lt;img src=&quot;/public/images/parted_print_output.jpg&quot; alt=&quot;&#39;lsblk&#39;&quot; /&gt;&lt;br /&gt;
+… parted /dev/sda&lt;br /&gt;
+… (parted) mklabel msdos&lt;br /&gt;
+… mkpart primary ext4 1MiB 200MiB&lt;br /&gt;
+… set 1 boot on&lt;br /&gt;
+… mkpart primary linux-swap 210MiB 1177MiB&lt;br /&gt;
+… mkpart primary ext4 1024MiB 100%&lt;br /&gt;
+… mkfs.ext4 /dev/sda1&lt;br /&gt;
+… mkfs.ext4 /dev/sda3&lt;br /&gt;
+… Activate swap&lt;br /&gt;
+…… mkswap /dev/sda2&lt;br /&gt;
+…… swapon /dev/sda2&lt;br /&gt;
+… mount /dev/sda3 /mnt&lt;br /&gt;
+… mkdir -p /mnt/boot&lt;br /&gt;
+… mount /dev/sda1 /mnt/boot&lt;br /&gt;
+… Install the base system&lt;br /&gt;
+…… pacstrap -i /mnt base base-devel&lt;br /&gt;
+… genfstab -U -p /mnt » /mnt/etc/fstab  &lt;/p&gt;
 
 &lt;hr /&gt;
 
-&lt;p&gt;&lt;strong&gt;chroot into your newly installed base system&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;…… arch-chroot /mnt /bin/bash&lt;/p&gt;
-
-&lt;p&gt;… passwd&lt;/p&gt;
-
-&lt;p&gt;… pacman -S grub os-prober&lt;/p&gt;
-
-&lt;p&gt;… grub-install –recheck /dev/sda&lt;/p&gt;
-
-&lt;p&gt;… grub-mkconfig -o /boot/grub/grub.cfg&lt;/p&gt;
-
-&lt;p&gt;… exit&lt;/p&gt;
-
-&lt;p&gt;… umount -R /mnt&lt;/p&gt;
-
-&lt;p&gt;… reboot&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;chroot into your newly installed base system&lt;/strong&gt;&lt;br /&gt;
+…… arch-chroot /mnt /bin/bash&lt;br /&gt;
+… passwd&lt;br /&gt;
+… pacman -S grub os-prober&lt;br /&gt;
+… grub-install –recheck /dev/sda&lt;br /&gt;
+… grub-mkconfig -o /boot/grub/grub.cfg&lt;br /&gt;
+… exit&lt;br /&gt;
+… umount -R /mnt&lt;br /&gt;
+… reboot  &lt;/p&gt;
 
 &lt;hr /&gt;
 
-&lt;p&gt;&lt;strong&gt;Network Configuration&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;… nano /etc/systemd/enp0s3.network&lt;/p&gt;
-
-&lt;p&gt;… nano /etc/systemd/enp0s8.network&lt;/p&gt;
-
-&lt;p&gt;… nano /etc/resolv.conf&lt;/p&gt;
-
-&lt;p&gt;… systemctl enable dhcpcd@enp0s3.service&lt;/p&gt;
-
-&lt;p&gt;… systemctl enable dhcpcd@enp0s8.service&lt;/p&gt;
-
-&lt;p&gt;… systemctl restart systemd-networkd&lt;/p&gt;
-
-&lt;p&gt;… systemctl status systemd-networkd&lt;/p&gt;
-
-&lt;p&gt;… networkctl&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Network Configuration&lt;/strong&gt;&lt;br /&gt;
+… nano /etc/systemd/enp0s3.network&lt;br /&gt;
+… nano /etc/systemd/enp0s8.network&lt;br /&gt;
+… nano /etc/resolv.conf&lt;br /&gt;
+… systemctl enable dhcpcd@enp0s3.service&lt;br /&gt;
+… systemctl enable dhcpcd@enp0s8.service&lt;br /&gt;
+… systemctl restart systemd-networkd&lt;br /&gt;
+… systemctl status systemd-networkd&lt;br /&gt;
+… networkctl  &lt;/p&gt;
 
 &lt;hr /&gt;
 
-&lt;p&gt;&lt;strong&gt;Installing VirtualBox Guest Addition&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;… pacman -S virtualbox-guest-modules virtualbox-guest-utils&lt;/p&gt;
-
-&lt;p&gt;… modprobe -a vboxguest vboxsf vboxvideo&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Installing VirtualBox Guest Addition&lt;/strong&gt;&lt;br /&gt;
+… pacman -S virtualbox-guest-modules virtualbox-guest-utils&lt;br /&gt;
+… modprobe -a vboxguest vboxsf vboxvideo  &lt;/p&gt;
 
 &lt;hr /&gt;
 
-&lt;p&gt;&lt;strong&gt;Installing LXQT&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;… pacman -S lxqt&lt;/p&gt;
-
-&lt;p&gt;… pacman -S openbox&lt;/p&gt;
-
-&lt;p&gt;… pacman -S sddm&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Installing LXQT&lt;/strong&gt;&lt;br /&gt;
+… pacman -S lxqt&lt;br /&gt;
+… pacman -S openbox&lt;br /&gt;
+… pacman -S sddm  &lt;/p&gt;
 
 &lt;hr /&gt;
 
-&lt;p&gt;————-&amp;gt; ???
+&lt;p&gt;————-&amp;gt; ???&lt;br /&gt;
 pacman -S lxqt openbox obconf xf86-video-fbdev xorg-server xorg-server-utils xorg-xinit mesa xf86-input-keyboard xf86-input-mouse xterm ttf-dejavu libxkbcommon libxkbcommon-x11
 Then nano .xinitrc and type “exec startlxqt” save
-startx and it’s working.
-&amp;lt;————-&lt;/p&gt;
+startx and it’s working.&lt;br /&gt;
+&amp;lt;————-  &lt;/p&gt;
 
 &lt;hr /&gt;
 
-&lt;p&gt;… nano /etc/X11/xinit/xinitrc ==&amp;gt; add “exec startlxqt”&lt;/p&gt;
-
-&lt;p&gt;… cp /etc/X11/xinit/xinitrc ~/.xinitrc&lt;/p&gt;
-
-&lt;p&gt;… sddm –example-config &amp;gt; /etc/sddm.conf&lt;/p&gt;
-
-&lt;p&gt;… systemctl enable sddm.service&lt;/p&gt;
+&lt;p&gt;… nano /etc/X11/xinit/xinitrc ==&amp;gt; add “exec startlxqt”&lt;br /&gt;
+… cp /etc/X11/xinit/xinitrc ~/.xinitrc&lt;br /&gt;
+… sddm –example-config &amp;gt; /etc/sddm.conf&lt;br /&gt;
+… systemctl enable sddm.service  &lt;/p&gt;
 
 &lt;hr /&gt;
 
-&lt;p&gt;&lt;strong&gt;Installing XFCE&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;… pacman -S xfce4 xorg lxdm&lt;/p&gt;
-
-&lt;p&gt;… systemctl enable lxdm.service&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Installing XFCE&lt;/strong&gt;&lt;br /&gt;
+… pacman -S xfce4 xorg lxdm&lt;br /&gt;
+… systemctl enable lxdm.service  &lt;/p&gt;
 
 &lt;hr /&gt;
 
-&lt;p&gt;&lt;strong&gt;Add user&lt;/strong&gt;
-adduser &lt;username&gt;
-passwd &lt;username&gt;
-visudo --&amp;gt; search for &quot;# User privilege specification&quot; and add &quot;&lt;username&gt; ALL = (ALL) ALL&quot;&lt;/username&gt;&lt;/username&gt;&lt;/username&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Add user&lt;/strong&gt;&lt;br /&gt;
+adduser &lt;username&gt;  
+passwd &lt;username&gt;  
+visudo --&amp;gt; search for &quot;# User privilege specification&quot; and add &quot;&lt;username&gt; ALL = (ALL) ALL&quot;  &lt;/username&gt;&lt;/username&gt;&lt;/username&gt;&lt;/p&gt;
 </description>
         <pubDate>Tue, 23 Jun 2015 00:00:00 +0800</pubDate>
         <link>schaazzz.github.io/installing-arch-on-vbox</link>

@@ -96,140 +96,93 @@
 
 <hr />
 
-<p>… no packages included, working internet connection required during installation</p>
-
-<p>… lsblk</p>
-
-<p><img src="/public/images/lsblk_output.jpg" alt="'lsblk'" /></p>
-
-<p>… parted /dev/sda print</p>
-
-<p><img src="/public/images/parted_print_output.jpg" alt="'lsblk'" /></p>
-
-<p>… parted /dev/sda</p>
-
-<p>… (parted) mklabel msdos</p>
-
-<p>… mkpart primary ext4 1MiB 200MiB</p>
-
-<p>… set 1 boot on</p>
-
-<p>… mkpart primary linux-swap 210MiB 1177MiB</p>
-
-<p>… mkpart primary ext4 1024MiB 100%</p>
-
-<p>… mkfs.ext4 /dev/sda1</p>
-
-<p>… mkfs.ext4 /dev/sda3</p>
-
-<p>… Activate swap</p>
-
-<p>…… mkswap /dev/sda2</p>
-
-<p>…… swapon /dev/sda2</p>
-
-<p>… mount /dev/sda3 /mnt</p>
-
-<p>… mkdir -p /mnt/boot</p>
-
-<p>… mount /dev/sda1 /mnt/boot</p>
-
-<p>… Install the base system</p>
-
-<p>…… pacstrap -i /mnt base base-devel</p>
-
-<p>… genfstab -U -p /mnt » /mnt/etc/fstab</p>
+<p>… no packages included, working internet connection required during installation<br />
+… lsblk<br />
+<img src="/public/images/lsblk_output.jpg" alt="'lsblk'" /><br />
+… parted /dev/sda print<br />
+<img src="/public/images/parted_print_output.jpg" alt="'lsblk'" /><br />
+… parted /dev/sda<br />
+… (parted) mklabel msdos<br />
+… mkpart primary ext4 1MiB 200MiB<br />
+… set 1 boot on<br />
+… mkpart primary linux-swap 210MiB 1177MiB<br />
+… mkpart primary ext4 1024MiB 100%<br />
+… mkfs.ext4 /dev/sda1<br />
+… mkfs.ext4 /dev/sda3<br />
+… Activate swap<br />
+…… mkswap /dev/sda2<br />
+…… swapon /dev/sda2<br />
+… mount /dev/sda3 /mnt<br />
+… mkdir -p /mnt/boot<br />
+… mount /dev/sda1 /mnt/boot<br />
+… Install the base system<br />
+…… pacstrap -i /mnt base base-devel<br />
+… genfstab -U -p /mnt » /mnt/etc/fstab  </p>
 
 <hr />
 
-<p><strong>chroot into your newly installed base system</strong></p>
-
-<p>…… arch-chroot /mnt /bin/bash</p>
-
-<p>… passwd</p>
-
-<p>… pacman -S grub os-prober</p>
-
-<p>… grub-install –recheck /dev/sda</p>
-
-<p>… grub-mkconfig -o /boot/grub/grub.cfg</p>
-
-<p>… exit</p>
-
-<p>… umount -R /mnt</p>
-
-<p>… reboot</p>
+<p><strong>chroot into your newly installed base system</strong><br />
+…… arch-chroot /mnt /bin/bash<br />
+… passwd<br />
+… pacman -S grub os-prober<br />
+… grub-install –recheck /dev/sda<br />
+… grub-mkconfig -o /boot/grub/grub.cfg<br />
+… exit<br />
+… umount -R /mnt<br />
+… reboot  </p>
 
 <hr />
 
-<p><strong>Network Configuration</strong></p>
-
-<p>… nano /etc/systemd/enp0s3.network</p>
-
-<p>… nano /etc/systemd/enp0s8.network</p>
-
-<p>… nano /etc/resolv.conf</p>
-
-<p>… systemctl enable dhcpcd@enp0s3.service</p>
-
-<p>… systemctl enable dhcpcd@enp0s8.service</p>
-
-<p>… systemctl restart systemd-networkd</p>
-
-<p>… systemctl status systemd-networkd</p>
-
-<p>… networkctl</p>
+<p><strong>Network Configuration</strong><br />
+… nano /etc/systemd/enp0s3.network<br />
+… nano /etc/systemd/enp0s8.network<br />
+… nano /etc/resolv.conf<br />
+… systemctl enable dhcpcd@enp0s3.service<br />
+… systemctl enable dhcpcd@enp0s8.service<br />
+… systemctl restart systemd-networkd<br />
+… systemctl status systemd-networkd<br />
+… networkctl  </p>
 
 <hr />
 
-<p><strong>Installing VirtualBox Guest Addition</strong></p>
-
-<p>… pacman -S virtualbox-guest-modules virtualbox-guest-utils</p>
-
-<p>… modprobe -a vboxguest vboxsf vboxvideo</p>
+<p><strong>Installing VirtualBox Guest Addition</strong><br />
+… pacman -S virtualbox-guest-modules virtualbox-guest-utils<br />
+… modprobe -a vboxguest vboxsf vboxvideo  </p>
 
 <hr />
 
-<p><strong>Installing LXQT</strong></p>
-
-<p>… pacman -S lxqt</p>
-
-<p>… pacman -S openbox</p>
-
-<p>… pacman -S sddm</p>
+<p><strong>Installing LXQT</strong><br />
+… pacman -S lxqt<br />
+… pacman -S openbox<br />
+… pacman -S sddm  </p>
 
 <hr />
 
-<p>————-&gt; ???
+<p>————-&gt; ???<br />
 pacman -S lxqt openbox obconf xf86-video-fbdev xorg-server xorg-server-utils xorg-xinit mesa xf86-input-keyboard xf86-input-mouse xterm ttf-dejavu libxkbcommon libxkbcommon-x11
 Then nano .xinitrc and type “exec startlxqt” save
-startx and it’s working.
-&lt;————-</p>
+startx and it’s working.<br />
+&lt;————-  </p>
 
 <hr />
 
-<p>… nano /etc/X11/xinit/xinitrc ==&gt; add “exec startlxqt”</p>
-
-<p>… cp /etc/X11/xinit/xinitrc ~/.xinitrc</p>
-
-<p>… sddm –example-config &gt; /etc/sddm.conf</p>
-
-<p>… systemctl enable sddm.service</p>
+<p>… nano /etc/X11/xinit/xinitrc ==&gt; add “exec startlxqt”<br />
+… cp /etc/X11/xinit/xinitrc ~/.xinitrc<br />
+… sddm –example-config &gt; /etc/sddm.conf<br />
+… systemctl enable sddm.service  </p>
 
 <hr />
 
-<p><strong>Installing XFCE</strong></p>
-
-<p>… pacman -S xfce4 xorg lxdm</p>
-
-<p>… systemctl enable lxdm.service</p>
+<p><strong>Installing XFCE</strong><br />
+… pacman -S xfce4 xorg lxdm<br />
+… systemctl enable lxdm.service  </p>
 
 <hr />
 
-<p><strong>Add user</strong>
-adduser <username>
-passwd <username>
-visudo --&gt; search for "# User privilege specification" and add "<username> ALL = (ALL) ALL"</username></username></username></p>
+<p><strong>Add user</strong><br />
+adduser <username>  
+passwd <username>  
+visudo --&gt; search for "# User privilege specification" and add "<username> ALL = (ALL) ALL"  </username></username></username></p>
 
     
 <div class="share-btns">
@@ -309,8 +262,9 @@ visudo --&gt; search for "# User privilege specification" and add "<username> AL
           </h3>
             
           <h2 class="post-title-link"><a href="/configuring-archlinux-vm-dev-env">Configuring Your Arch Linux VM for Development</a></h2>
-          <p>python /mnt/schaazzz/projects/sandbox.local/get-pip.py 
-sudo python /mnt/schaazzz/projects/sandbox.local/get-pip.py</p>
+          <p>wget https://bootstrap.pypa.io/get-pip.py<br />
+sudo python /mnt/schaazzz/projects/sandbox.local/get-pip.py<br />
+sudo python -m pip install <package>  </package></p>
 
 
         </div>
