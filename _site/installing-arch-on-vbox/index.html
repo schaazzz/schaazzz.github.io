@@ -120,32 +120,62 @@
 <p>You can <a href="https://wiki.archlinux.org/index.php/Partitioning">partition the hard drive</a> using either a <a href="https://wiki.archlinux.org/index.php/Partitioning#Single_root_partition">single root partition</a> or <a href="https://wiki.archlinux.org/index.php/Partitioning#Discrete_partitions">discrete partitions</a>. I’ve chosen a mixture of the 2 partitioning schemes, 200MB as /boot for installing GRUB, 1024MB swap file and the rest allocated as a single root partition.  </p>
 
 <ul>
-  <li>
-    <p>Lets use the <code>lsblk</code> command to take a look at all the available storage devices:<br />
-<img src="/public/images/lsblk_output.jpg" alt="'lsblk'" class="center-image" />  </p>
-  </li>
-  <li>
-    <p>As you can seen in the example above, in my case, “sda” was the VM’s hard drive image. We can find out a bit more about “sda” using <code>parted  /dev/sda  print</code>:<br /><br />
-<img src="/public/images/parted_print_output.jpg" alt="'lsblk'" class="center-image" />  </p>
-  </li>
-  <li>
-    <p>The following set of command will create the desired partitions:</p>
-  </li>
+  <li>Let’s use the <code>lsblk</code> command to take a look at all the available storage devices:<br /></li>
+</ul>
+
+<pre>
+root@archiso ~ # lsblk
+NAME             MAJ:MIN RM    SIZE  RO  TYPE  MOUNTPOINT
+sda                8:0    0      8G   0  disk
+sr0               11:0    1    637M   0  rom   /run/archiso/bootmnt
+loop0              7:0    0  278.2M   1  loop  /run/archiso/sfs/airootfs
+loop1              7:1    0     32G   1  loop
+└─arch_airootfs  254:0    0     32G   0  dm    /
+loop2              7:2    0    256M   0  loop
+└─arch_airootfs  254:0    0     32G   0  dm    /  
+</pre>
+
+<ul>
+  <li>As you can seen in the example above, in my case, <em>“sda”</em> was the VM’s hard drive image. We can find out a bit more about “sda” using <code>parted  /dev/sda  print</code>:<br />  </li>
 </ul>
 <pre>
-parted /dev/sda  
-(parted) mklabel msdos  
-(parted) mkpart primary ext4 1MiB 200MiB  
-(parted) set 1 boot on  
-(parted) mkpart primary linux-swap 210MiB 1177MiB  
-(parted)  mkpart primary ext4 1024MiB 100%  
+root@archiso ~ # parted  /dev/sda  print
+Error:  /dev/sda:  unrecognised  disk  label
+Model:  ATA  VBOX HHRDDISK  (scsi)
+Disk  /dev/sdai  8590MB
+Sector  size  (logical/physical):  512B/512B
+Partition  Table:  unknown
+Disk Flags:
 </pre>
-<p>… mkfs.ext4 /dev/sda1<br />
-… mkfs.ext4 /dev/sda3<br />
-… Activate swap<br />
-…… mkswap /dev/sda2<br />
-…… swapon /dev/sda2<br />
-… mount /dev/sda3 /mnt<br />
+
+<ul>
+  <li>The following set of command will create the desired partitions:</li>
+</ul>
+<pre>
+root@archiso ~ # parted  /dev/sda  
+(parted)  mklabel  msdos  
+(parted)  mkpart  primary  ext4  1MiB  200MiB  
+(parted)  set  1  boot  on  
+(parted)  mkpart  primary  linux-swap  210MiB  1177MiB  
+(parted)  mkpart  primary  ext4  1024MiB  100%  
+</pre>
+
+<ul>
+  <li>Let’s format the boot and root partitions</li>
+</ul>
+<pre>
+root@archiso ~ # mkfs.ext4 /dev/sda1  
+root@archiso ~ # mkfs.ext4 /dev/sda3  
+</pre>
+
+<ul>
+  <li>Then activate the swap partition:</li>
+</ul>
+<pre>
+root@archiso ~ # mkswap /dev/sda2  
+root@archiso ~ # swapon /dev/sda2  
+</pre>
+<p>… mount /dev/sda3 /mnt<br />
 … mkdir -p /mnt/boot<br />
 … mount /dev/sda1 /mnt/boot<br />
 … Install the base system<br />

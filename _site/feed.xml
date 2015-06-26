@@ -5,8 +5,8 @@
     <description></description>
     <link>schaazzz.github.io/</link>
     <atom:link href="schaazzz.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sat, 27 Jun 2015 02:05:15 +0800</pubDate>
-    <lastBuildDate>Sat, 27 Jun 2015 02:05:15 +0800</lastBuildDate>
+    <pubDate>Sat, 27 Jun 2015 02:53:50 +0800</pubDate>
+    <lastBuildDate>Sat, 27 Jun 2015 02:53:50 +0800</lastBuildDate>
     <generator>Jekyll v2.4.0</generator>
     
       <item>
@@ -82,32 +82,62 @@ sudo systemctl enable sshd.service&lt;/p&gt;
 &lt;p&gt;You can &lt;a href=&quot;https://wiki.archlinux.org/index.php/Partitioning&quot;&gt;partition the hard drive&lt;/a&gt; using either a &lt;a href=&quot;https://wiki.archlinux.org/index.php/Partitioning#Single_root_partition&quot;&gt;single root partition&lt;/a&gt; or &lt;a href=&quot;https://wiki.archlinux.org/index.php/Partitioning#Discrete_partitions&quot;&gt;discrete partitions&lt;/a&gt;. I’ve chosen a mixture of the 2 partitioning schemes, 200MB as /boot for installing GRUB, 1024MB swap file and the rest allocated as a single root partition.  &lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;Lets use the &lt;code&gt;lsblk&lt;/code&gt; command to take a look at all the available storage devices:&lt;br /&gt;
-&lt;img src=&quot;/public/images/lsblk_output.jpg&quot; alt=&quot;&#39;lsblk&#39;&quot; class=&quot;center-image&quot; /&gt;  &lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;As you can seen in the example above, in my case, “sda” was the VM’s hard drive image. We can find out a bit more about “sda” using &lt;code&gt;parted  /dev/sda  print&lt;/code&gt;:&lt;br /&gt;&lt;br /&gt;
-&lt;img src=&quot;/public/images/parted_print_output.jpg&quot; alt=&quot;&#39;lsblk&#39;&quot; class=&quot;center-image&quot; /&gt;  &lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;The following set of command will create the desired partitions:&lt;/p&gt;
-  &lt;/li&gt;
+  &lt;li&gt;Let’s use the &lt;code&gt;lsblk&lt;/code&gt; command to take a look at all the available storage devices:&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;
+root@archiso ~ # lsblk
+NAME             MAJ:MIN RM    SIZE  RO  TYPE  MOUNTPOINT
+sda                8:0    0      8G   0  disk
+sr0               11:0    1    637M   0  rom   /run/archiso/bootmnt
+loop0              7:0    0  278.2M   1  loop  /run/archiso/sfs/airootfs
+loop1              7:1    0     32G   1  loop
+└─arch_airootfs  254:0    0     32G   0  dm    /
+loop2              7:2    0    256M   0  loop
+└─arch_airootfs  254:0    0     32G   0  dm    /  
+&lt;/pre&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;As you can seen in the example above, in my case, &lt;em&gt;“sda”&lt;/em&gt; was the VM’s hard drive image. We can find out a bit more about “sda” using &lt;code&gt;parted  /dev/sda  print&lt;/code&gt;:&lt;br /&gt;  &lt;/li&gt;
 &lt;/ul&gt;
 &lt;pre&gt;
-parted /dev/sda  
-(parted) mklabel msdos  
-(parted) mkpart primary ext4 1MiB 200MiB  
-(parted) set 1 boot on  
-(parted) mkpart primary linux-swap 210MiB 1177MiB  
-(parted)  mkpart primary ext4 1024MiB 100%  
+root@archiso ~ # parted  /dev/sda  print
+Error:  /dev/sda:  unrecognised  disk  label
+Model:  ATA  VBOX HHRDDISK  (scsi)
+Disk  /dev/sdai  8590MB
+Sector  size  (logical/physical):  512B/512B
+Partition  Table:  unknown
+Disk Flags:
 &lt;/pre&gt;
-&lt;p&gt;… mkfs.ext4 /dev/sda1&lt;br /&gt;
-… mkfs.ext4 /dev/sda3&lt;br /&gt;
-… Activate swap&lt;br /&gt;
-…… mkswap /dev/sda2&lt;br /&gt;
-…… swapon /dev/sda2&lt;br /&gt;
-… mount /dev/sda3 /mnt&lt;br /&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;The following set of command will create the desired partitions:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;
+root@archiso ~ # parted  /dev/sda  
+(parted)  mklabel  msdos  
+(parted)  mkpart  primary  ext4  1MiB  200MiB  
+(parted)  set  1  boot  on  
+(parted)  mkpart  primary  linux-swap  210MiB  1177MiB  
+(parted)  mkpart  primary  ext4  1024MiB  100%  
+&lt;/pre&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Let’s format the boot and root partitions&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;
+root@archiso ~ # mkfs.ext4 /dev/sda1  
+root@archiso ~ # mkfs.ext4 /dev/sda3  
+&lt;/pre&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Then activate the swap partition:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;
+root@archiso ~ # mkswap /dev/sda2  
+root@archiso ~ # swapon /dev/sda2  
+&lt;/pre&gt;
+&lt;p&gt;… mount /dev/sda3 /mnt&lt;br /&gt;
 … mkdir -p /mnt/boot&lt;br /&gt;
 … mount /dev/sda1 /mnt/boot&lt;br /&gt;
 … Install the base system&lt;br /&gt;

@@ -196,6 +196,20 @@ code {
 }
 
 pre {
+  padding: 20px;
+  overflow: auto;
+  color: #f2f2f2;
+  text-shadow: none;
+  background: #303030;
+}
+pre code {
+  padding: 0;
+  color: #f2f2f2;
+  background-color: #303030;
+  border: none;
+}
+
+/*pre {
   padding: 8px 15px;
   background: #1D1D1F;
   -webkit-border-radius: 1px;
@@ -213,7 +227,7 @@ pre code {
   text-shadow: 0px 1px 0px #000;
   margin: 0;
   padding: 0;
-}
+}*/
 
 table {
   width: 100%;
