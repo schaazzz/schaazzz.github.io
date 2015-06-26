@@ -5,15 +5,29 @@
     <description></description>
     <link>schaazzz.github.io/</link>
     <atom:link href="schaazzz.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Thu, 25 Jun 2015 09:54:20 +0800</pubDate>
-    <lastBuildDate>Thu, 25 Jun 2015 09:54:20 +0800</lastBuildDate>
+    <pubDate>Fri, 26 Jun 2015 17:43:05 +0800</pubDate>
+    <lastBuildDate>Fri, 26 Jun 2015 17:43:05 +0800</lastBuildDate>
     <generator>Jekyll v2.4.0</generator>
     
       <item>
         <title>Configuring Your Arch Linux VM for Development</title>
-        <description>&lt;p&gt;wget https://bootstrap.pypa.io/get-pip.py&lt;br /&gt;
+        <description>&lt;p&gt;sudo ln -s /usr/bin/python2 /usr/bin/python
+wget https://bootstrap.pypa.io/get-pip.py&lt;br /&gt;
 sudo python /mnt/schaazzz/projects/sandbox.local/get-pip.py&lt;br /&gt;
 sudo python -m pip install &lt;package&gt;  &lt;/package&gt;&lt;/p&gt;
+
+&lt;p&gt;sudo pacman -S ruby
+~/.bashrc
+………+  PATH=”$(ruby -e ‘print Gem.user_dir’)/bin:$PATH)”
+………+  export GEM_HOME=$(ruby -e ‘print Gem.user_dir’)
+source ~/.bashrc&lt;/p&gt;
+
+&lt;p&gt;note: /etc/environment is a better option: works with ssh as well&lt;/p&gt;
+
+&lt;p&gt;… for SSH:
+sudo pacman -S openssh
+nano /etc/ssh/sshd_config =&amp;gt; enable “AddressFamily any”
+sudo systemctl enable sshd.service&lt;/p&gt;
 </description>
         <pubDate>Fri, 26 Jun 2015 00:00:00 +0800</pubDate>
         <link>schaazzz.github.io/configuring-archlinux-vm-dev-env</link>
@@ -40,11 +54,15 @@ sudo python -m pip install &lt;package&gt;  &lt;/package&gt;&lt;/p&gt;
     
       <item>
         <title>Installing Arch Linux on VirtualBox</title>
-        <description>&lt;p&gt;No installer bundled with the Arch Linux ISO, has to be installed manually. &lt;!--more--&gt;&lt;/p&gt;
+        <description>&lt;p&gt;Arch Linux has to be installed manually since the official &lt;a href=&quot;https://www.archlinux.org/download/&quot;&gt;Arch Linux ISO&lt;/a&gt; doesn’t contain an installer, additionally, no packages are included in the ISO, so a working internet connection is required during installation. &lt;!--more--&gt;&lt;/p&gt;
+
+&lt;p&gt;Most of the information below can be found in the &lt;a href=&quot;https://wiki.archlinux.org/index.php/Installation_guide&quot;&gt;official installation guide&lt;/a&gt; but some other information requires some Googling and a little bit of digging around on the Arch Linux wiki.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;Virtual Machine Configuration&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
 
 &lt;hr /&gt;
 
-&lt;p&gt;… no packages included, working internet connection required during installation&lt;br /&gt;
+&lt;p&gt;…
 … lsblk&lt;br /&gt;
 &lt;img src=&quot;/public/images/lsblk_output.jpg&quot; alt=&quot;&#39;lsblk&#39;&quot; /&gt;&lt;br /&gt;
 … parted /dev/sda print&lt;br /&gt;
@@ -89,7 +107,8 @@ sudo python -m pip install &lt;package&gt;  &lt;/package&gt;&lt;/p&gt;
 … systemctl enable dhcpcd@enp0s8.service&lt;br /&gt;
 … systemctl restart systemd-networkd&lt;br /&gt;
 … systemctl status systemd-networkd&lt;br /&gt;
-… networkctl  &lt;/p&gt;
+… networkctl&lt;br /&gt;
+… pacman -Syu&lt;/p&gt;
 
 &lt;hr /&gt;
 

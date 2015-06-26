@@ -92,11 +92,15 @@
 
 </div>
             
-  <p>No installer bundled with the Arch Linux ISO, has to be installed manually. <!--more--></p>
+  <p>Arch Linux has to be installed manually since the official <a href="https://www.archlinux.org/download/">Arch Linux ISO</a> doesn’t contain an installer, additionally, no packages are included in the ISO, so a working internet connection is required during installation. <!--more--></p>
+
+<p>Most of the information below can be found in the <a href="https://wiki.archlinux.org/index.php/Installation_guide">official installation guide</a> but some other information requires some Googling and a little bit of digging around on the Arch Linux wiki.</p>
+
+<p><strong><em>Virtual Machine Configuration</em></strong></p>
 
 <hr />
 
-<p>… no packages included, working internet connection required during installation<br />
+<p>…
 … lsblk<br />
 <img src="/public/images/lsblk_output.jpg" alt="'lsblk'" /><br />
 … parted /dev/sda print<br />
@@ -141,7 +145,8 @@
 … systemctl enable dhcpcd@enp0s8.service<br />
 … systemctl restart systemd-networkd<br />
 … systemctl status systemd-networkd<br />
-… networkctl  </p>
+… networkctl<br />
+… pacman -Syu</p>
 
 <hr />
 
@@ -262,9 +267,23 @@ visudo --&gt; search for "# User privilege specification" and add "<username> AL
           </h3>
             
           <h2 class="post-title-link"><a href="/configuring-archlinux-vm-dev-env">Configuring Your Arch Linux VM for Development</a></h2>
-          <p>wget https://bootstrap.pypa.io/get-pip.py<br />
+          <p>sudo ln -s /usr/bin/python2 /usr/bin/python
+wget https://bootstrap.pypa.io/get-pip.py<br />
 sudo python /mnt/schaazzz/projects/sandbox.local/get-pip.py<br />
 sudo python -m pip install <package>  </package></p>
+
+<p>sudo pacman -S ruby
+~/.bashrc
+………+  PATH=”$(ruby -e ‘print Gem.user_dir’)/bin:$PATH)”
+………+  export GEM_HOME=$(ruby -e ‘print Gem.user_dir’)
+source ~/.bashrc</p>
+
+<p>note: /etc/environment is a better option: works with ssh as well</p>
+
+<p>… for SSH:
+sudo pacman -S openssh
+nano /etc/ssh/sshd_config =&gt; enable “AddressFamily any”
+sudo systemctl enable sshd.service</p>
 
 
         </div>

@@ -5,11 +5,15 @@ author: Shahzeb Ihsan
 tags: virtualbox, virtualmachine, archlinux, linux, development
 ---
 
-No installer bundled with the Arch Linux ISO, has to be installed manually. <!--more-->
+Arch Linux has to be installed manually since the official [Arch Linux ISO](https://www.archlinux.org/download/) doesn't contain an installer, additionally, no packages are included in the ISO, so a working internet connection is required during installation. <!--more-->
+
+Most of the information below can be found in the [official installation guide](https://wiki.archlinux.org/index.php/Installation_guide) but some other information requires some Googling and a little bit of digging around on the Arch Linux wiki.
+
+**Virtual Machine Configuration**
 
 --------------------
 
-... no packages included, working internet connection required during installation  
+...
 ... lsblk  
 !['lsblk']({{ site.baseurl }}/public/images/lsblk_output.jpg)  
 ... parted /dev/sda print  
@@ -55,6 +59,7 @@ No installer bundled with the Arch Linux ISO, has to be installed manually. <!--
 ... systemctl restart systemd-networkd  
 ... systemctl status systemd-networkd  
 ... networkctl  
+... pacman -Syu
 
 ---------------------
 
