@@ -96,9 +96,9 @@
 
 <p>Most of the information below can be found in the <a href="https://wiki.archlinux.org/index.php/Installation_guide">official installation guide</a> but some other information requires some Googling and a little bit of digging around on the Arch Linux wiki.</p>
 
-<p><strong>Virtual Machine Configuration</strong>  </p>
+<custom0>Virtual Machine Configuration</custom0>
 
-<p><img src="/public/images/vm_config.png" alt="Virtual Machine Configuration" />  </p>
+<p><img src="/public/images/vm_config.png" alt="Virtual Machine Configuration" class="center-image" />  </p>
 
 <p>Configuration of the highlighted settings are important and the rest are optional. Arch Linux can run on a pretty low memory configuration so you can set the size of the display and base memories according to your preferences.  </p>
 
@@ -106,7 +106,7 @@
 
 <p>The network settings are important for installation of Arch Linux. At a minimum, you need to bridge your host machine’s network interface (which is connected to the interface) with your VM as show in the following image:  </p>
 
-<p><img src="/public/images/vm_config_network.png" alt="Virtual Machine Configuration - Network" /></p>
+<p><img src="/public/images/vm_config_network.png" alt="Virtual Machine Configuration - Network" class="center-image" />  </p>
 
 <p>In case you would like any folders from your host machine to be accessible in your VM, the simplest way is to add them to the “Machine Folders” section under “Shared Folders” but do not selec the “Auto-mount” option otherwise they will only be accessible as root.</p>
 
@@ -114,9 +114,9 @@
 
 <p>…
 … lsblk<br />
-<img src="/public/images/lsblk_output.jpg" alt="'lsblk'" /><br />
+<img src="/public/images/lsblk_output.jpg" alt="'lsblk'" class="center-image" /><br />
 … parted /dev/sda print<br />
-<img src="/public/images/parted_print_output.jpg" alt="'lsblk'" /><br />
+<img src="/public/images/parted_print_output.jpg" alt="'lsblk'" class="center-image" /><br />
 … parted /dev/sda<br />
 … (parted) mklabel msdos<br />
 … mkpart primary ext4 1MiB 200MiB<br />

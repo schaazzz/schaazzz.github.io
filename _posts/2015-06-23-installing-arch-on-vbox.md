@@ -9,9 +9,9 @@ Arch Linux has to be installed manually since the official [Arch Linux ISO](http
 
 Most of the information below can be found in the [official installation guide](https://wiki.archlinux.org/index.php/Installation_guide) but some other information requires some Googling and a little bit of digging around on the Arch Linux wiki.
 
-**Virtual Machine Configuration**  
+<custom0>Virtual Machine Configuration</custom0>  
 
-![Virtual Machine Configuration]({{ site.baseurl }}/public/images/vm_config.png)  
+![Virtual Machine Configuration]({{ site.baseurl }}/public/images/vm_config.png){: .center-image }  
 
 Configuration of the highlighted settings are important and the rest are optional. Arch Linux can run on a pretty low memory configuration so you can set the size of the display and base memories according to your preferences.  
 
@@ -19,7 +19,7 @@ For storage, I configured a "dynamically allocated" 8.0 GB hard drive image sinc
 
 The network settings are important for installation of Arch Linux. At a minimum, you need to bridge your host machine's network interface (which is connected to the interface) with your VM as show in the following image:  
 
-![Virtual Machine Configuration - Network]({{ site.baseurl }}/public/images/vm_config_network.png)
+![Virtual Machine Configuration - Network]({{ site.baseurl }}/public/images/vm_config_network.png){: .center-image }  
 
 In case you would like any folders from your host machine to be accessible in your VM, the simplest way is to add them to the "Machine Folders" section under "Shared Folders" but do not selec the "Auto-mount" option otherwise they will only be accessible as root.
 
@@ -27,9 +27,9 @@ In case you would like any folders from your host machine to be accessible in yo
 
 ...
 ... lsblk  
-!['lsblk']({{ site.baseurl }}/public/images/lsblk_output.jpg)  
+!['lsblk']({{ site.baseurl }}/public/images/lsblk_output.jpg){: .center-image }  
 ... parted /dev/sda print  
-!['lsblk']({{ site.baseurl }}/public/images/parted_print_output.jpg)  
+!['lsblk']({{ site.baseurl }}/public/images/parted_print_output.jpg){: .center-image }  
 ... parted /dev/sda  
 ... (parted) mklabel msdos  
 ... mkpart primary ext4 1MiB 200MiB  

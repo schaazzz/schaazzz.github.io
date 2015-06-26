@@ -5,8 +5,8 @@
     <description></description>
     <link>schaazzz.github.io/</link>
     <atom:link href="schaazzz.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Fri, 26 Jun 2015 23:14:09 +0800</pubDate>
-    <lastBuildDate>Fri, 26 Jun 2015 23:14:09 +0800</lastBuildDate>
+    <pubDate>Sat, 27 Jun 2015 00:13:26 +0800</pubDate>
+    <lastBuildDate>Sat, 27 Jun 2015 00:13:26 +0800</lastBuildDate>
     <generator>Jekyll v2.4.0</generator>
     
       <item>
@@ -58,9 +58,9 @@ sudo systemctl enable sshd.service&lt;/p&gt;
 
 &lt;p&gt;Most of the information below can be found in the &lt;a href=&quot;https://wiki.archlinux.org/index.php/Installation_guide&quot;&gt;official installation guide&lt;/a&gt; but some other information requires some Googling and a little bit of digging around on the Arch Linux wiki.&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;Virtual Machine Configuration&lt;/strong&gt;  &lt;/p&gt;
+&lt;custom0&gt;Virtual Machine Configuration&lt;/custom0&gt;
 
-&lt;p&gt;&lt;img src=&quot;/public/images/vm_config.png&quot; alt=&quot;Virtual Machine Configuration&quot; /&gt;  &lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/public/images/vm_config.png&quot; alt=&quot;Virtual Machine Configuration&quot; class=&quot;center-image&quot; /&gt;  &lt;/p&gt;
 
 &lt;p&gt;Configuration of the highlighted settings are important and the rest are optional. Arch Linux can run on a pretty low memory configuration so you can set the size of the display and base memories according to your preferences.  &lt;/p&gt;
 
@@ -68,7 +68,7 @@ sudo systemctl enable sshd.service&lt;/p&gt;
 
 &lt;p&gt;The network settings are important for installation of Arch Linux. At a minimum, you need to bridge your host machine’s network interface (which is connected to the interface) with your VM as show in the following image:  &lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/public/images/vm_config_network.png&quot; alt=&quot;Virtual Machine Configuration - Network&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/public/images/vm_config_network.png&quot; alt=&quot;Virtual Machine Configuration - Network&quot; class=&quot;center-image&quot; /&gt;  &lt;/p&gt;
 
 &lt;p&gt;In case you would like any folders from your host machine to be accessible in your VM, the simplest way is to add them to the “Machine Folders” section under “Shared Folders” but do not selec the “Auto-mount” option otherwise they will only be accessible as root.&lt;/p&gt;
 
@@ -76,9 +76,9 @@ sudo systemctl enable sshd.service&lt;/p&gt;
 
 &lt;p&gt;…
 … lsblk&lt;br /&gt;
-&lt;img src=&quot;/public/images/lsblk_output.jpg&quot; alt=&quot;&#39;lsblk&#39;&quot; /&gt;&lt;br /&gt;
+&lt;img src=&quot;/public/images/lsblk_output.jpg&quot; alt=&quot;&#39;lsblk&#39;&quot; class=&quot;center-image&quot; /&gt;&lt;br /&gt;
 … parted /dev/sda print&lt;br /&gt;
-&lt;img src=&quot;/public/images/parted_print_output.jpg&quot; alt=&quot;&#39;lsblk&#39;&quot; /&gt;&lt;br /&gt;
+&lt;img src=&quot;/public/images/parted_print_output.jpg&quot; alt=&quot;&#39;lsblk&#39;&quot; class=&quot;center-image&quot; /&gt;&lt;br /&gt;
 … parted /dev/sda&lt;br /&gt;
 … (parted) mklabel msdos&lt;br /&gt;
 … mkpart primary ext4 1MiB 200MiB&lt;br /&gt;

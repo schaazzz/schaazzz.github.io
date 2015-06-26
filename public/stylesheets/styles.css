@@ -351,6 +351,12 @@ footer .right{
   margin-bottom: 15px;
 }
 
+.center-image
+{
+    margin: 0 auto;
+    display: block;
+}
+
 #title #sitename,.resume span,.resume h2 {
   color: #EC4E3B;
 }
