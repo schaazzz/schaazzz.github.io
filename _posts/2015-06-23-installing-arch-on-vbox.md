@@ -11,13 +11,13 @@ Most of the information below can be found in the [official installation guide](
 
 <custom0>Virtual Machine Configuration</custom0>  
 
+Configuration of the highlighted settings in the screenshot below are important and the rest are optional. Arch Linux can run on a pretty low memory configuration so you can set the size of the display and base memories according to your preferences.  
+
+For storage, I configured a "dynamically allocated" 8.0 GB hard drive image since I wanted to upload the resulting VMs to Dropbox, but I would recommend using a "fixed size" hard drive if you have space to spare on your host machine.
+
 ![Virtual Machine Configuration]({{ site.baseurl }}/public/images/vm_config.png){: .center-image }  
 
-Configuration of the highlighted settings are important and the rest are optional. Arch Linux can run on a pretty low memory configuration so you can set the size of the display and base memories according to your preferences.  
-
-For storage, I configured a "dynamically allocated" 8.0 GB hard drive image since I wanted to upload the resulting VMs to Dropbox, but I would recommend using a "fixed size" hard drive if you have space to spare on your host machine.  
-
-The network settings are important for installation of Arch Linux. At a minimum, you need to bridge your host machine's network interface (which is connected to the interface) with your VM as show in the following image:  
+The network settings are important for installation of Arch Linux. At a minimum, you need to bridge your host machine's network interface (which is connected to the internet) with your VM as show in the following image:  
 
 ![Virtual Machine Configuration - Network]({{ site.baseurl }}/public/images/vm_config_network.png){: .center-image }  
 
