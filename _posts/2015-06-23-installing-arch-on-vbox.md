@@ -9,13 +9,16 @@ Arch Linux has to be installed manually since the official [Arch Linux ISO](http
 
 Most of the information below can be found in the [official installation guide](https://wiki.archlinux.org/index.php/Installation_guide) but some other information requires some Googling and a little bit of digging around on the Arch Linux wiki.
 
-<custom0>Virtual Machine Configuration</custom0>  
+Virtual Machine Configuration
+---
+
+Create a new virtual machine in VirtualBox for Arch Linux (sample configuration shown below). Once the VM is created add the Arch Linux ISO to the CD/DVD drive.
+
+![Virtual Machine Configuration]({{ site.baseurl }}/public/images/vm_config.png){: .center-image }  
 
 Configuration of the highlighted settings in the screenshot below are important and the rest are optional. Arch Linux can run on a pretty low memory configuration so you can set the size of the display and base memories according to your preferences.  
 
-For storage, I configured a "dynamically allocated" 8.0 GB hard drive image since I wanted to upload the resulting VMs to Dropbox, but I would recommend using a "fixed size" hard drive if you have space to spare on your host machine.
-
-![Virtual Machine Configuration]({{ site.baseurl }}/public/images/vm_config.png){: .center-image }  
+For storage, I configured a "dynamically allocated" 8.0 GB hard drive image since I wanted to upload the resulting VMs to Dropbox, but I would recommend using a "fixed size" hard drive if you have space to spare on your host machine.  
 
 The network settings are important for installation of Arch Linux. At a minimum, you need to bridge your host machine's network interface (which is connected to the internet) with your VM as show in the following image:  
 
@@ -23,19 +26,30 @@ The network settings are important for installation of Arch Linux. At a minimum,
 
 In case you would like any folders from your host machine to be accessible in your VM, the simplest way is to add them to the "Machine Folders" section under "Shared Folders" but do not selec the "Auto-mount" option otherwise they will only be accessible as root.
 
---------------------
+Installing Arch Linux
+---
 
-...
-... lsblk  
+Now that the VM has been created with the ISO already _inserted_, start the virtual machine and login with user ID and password "root".
+
+
+<custom0>Partitioning the VM's Hard Drive</custom0>  
+You can [partition the hard drive](https://wiki.archlinux.org/index.php/Partitioning) using either a [single root partition](https://wiki.archlinux.org/index.php/Partitioning#Single_root_partition) or [discrete partitions](https://wiki.archlinux.org/index.php/Partitioning#Discrete_partitions). I've chosen a mixture of the 2 partitioning schemes, 200MB as /boot for installing GRUB, 1024MB swap file and the rest allocated as a single root partition.  
+
+- Lets use the `lsblk` command to take a look at all the available storage devices:<br>
 !['lsblk']({{ site.baseurl }}/public/images/lsblk_output.jpg){: .center-image }  
-... parted /dev/sda print  
+
+- As you can seen in the example above, in my case, "sda" was the VM's hard drive image. We can find out a bit more about "sda" using `parted  /dev/sda  print`:<br>  
 !['lsblk']({{ site.baseurl }}/public/images/parted_print_output.jpg){: .center-image }  
-... parted /dev/sda  
-... (parted) mklabel msdos  
-... mkpart primary ext4 1MiB 200MiB  
-... set 1 boot on  
-... mkpart primary linux-swap 210MiB 1177MiB  
-... mkpart primary ext4 1024MiB 100%  
+
+- The following set of command will create the desired partitions:
+<pre>
+parted /dev/sda  
+(parted) mklabel msdos  
+(parted) mkpart primary ext4 1MiB 200MiB  
+(parted) set 1 boot on  
+(parted) mkpart primary linux-swap 210MiB 1177MiB  
+(parted)  mkpart primary ext4 1024MiB 100%  
+</pre>
 ... mkfs.ext4 /dev/sda1  
 ... mkfs.ext4 /dev/sda3  
 ... Activate swap  

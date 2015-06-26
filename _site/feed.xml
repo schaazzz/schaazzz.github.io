@@ -5,8 +5,8 @@
     <description></description>
     <link>schaazzz.github.io/</link>
     <atom:link href="schaazzz.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sat, 27 Jun 2015 00:33:04 +0800</pubDate>
-    <lastBuildDate>Sat, 27 Jun 2015 00:33:04 +0800</lastBuildDate>
+    <pubDate>Sat, 27 Jun 2015 02:05:15 +0800</pubDate>
+    <lastBuildDate>Sat, 27 Jun 2015 02:05:15 +0800</lastBuildDate>
     <generator>Jekyll v2.4.0</generator>
     
       <item>
@@ -58,13 +58,15 @@ sudo systemctl enable sshd.service&lt;/p&gt;
 
 &lt;p&gt;Most of the information below can be found in the &lt;a href=&quot;https://wiki.archlinux.org/index.php/Installation_guide&quot;&gt;official installation guide&lt;/a&gt; but some other information requires some Googling and a little bit of digging around on the Arch Linux wiki.&lt;/p&gt;
 
-&lt;custom0&gt;Virtual Machine Configuration&lt;/custom0&gt;
+&lt;h2 id=&quot;virtual-machine-configuration&quot;&gt;Virtual Machine Configuration&lt;/h2&gt;
+
+&lt;p&gt;Create a new virtual machine in VirtualBox for Arch Linux (sample configuration shown below). Once the VM is created add the Arch Linux ISO to the CD/DVD drive.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/public/images/vm_config.png&quot; alt=&quot;Virtual Machine Configuration&quot; class=&quot;center-image&quot; /&gt;  &lt;/p&gt;
 
 &lt;p&gt;Configuration of the highlighted settings in the screenshot below are important and the rest are optional. Arch Linux can run on a pretty low memory configuration so you can set the size of the display and base memories according to your preferences.  &lt;/p&gt;
 
-&lt;p&gt;For storage, I configured a “dynamically allocated” 8.0 GB hard drive image since I wanted to upload the resulting VMs to Dropbox, but I would recommend using a “fixed size” hard drive if you have space to spare on your host machine.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/public/images/vm_config.png&quot; alt=&quot;Virtual Machine Configuration&quot; class=&quot;center-image&quot; /&gt;  &lt;/p&gt;
+&lt;p&gt;For storage, I configured a “dynamically allocated” 8.0 GB hard drive image since I wanted to upload the resulting VMs to Dropbox, but I would recommend using a “fixed size” hard drive if you have space to spare on your host machine.  &lt;/p&gt;
 
 &lt;p&gt;The network settings are important for installation of Arch Linux. At a minimum, you need to bridge your host machine’s network interface (which is connected to the internet) with your VM as show in the following image:  &lt;/p&gt;
 
@@ -72,20 +74,35 @@ sudo systemctl enable sshd.service&lt;/p&gt;
 
 &lt;p&gt;In case you would like any folders from your host machine to be accessible in your VM, the simplest way is to add them to the “Machine Folders” section under “Shared Folders” but do not selec the “Auto-mount” option otherwise they will only be accessible as root.&lt;/p&gt;
 
-&lt;hr /&gt;
+&lt;h2 id=&quot;installing-arch-linux&quot;&gt;Installing Arch Linux&lt;/h2&gt;
 
-&lt;p&gt;…
-… lsblk&lt;br /&gt;
-&lt;img src=&quot;/public/images/lsblk_output.jpg&quot; alt=&quot;&#39;lsblk&#39;&quot; class=&quot;center-image&quot; /&gt;&lt;br /&gt;
-… parted /dev/sda print&lt;br /&gt;
-&lt;img src=&quot;/public/images/parted_print_output.jpg&quot; alt=&quot;&#39;lsblk&#39;&quot; class=&quot;center-image&quot; /&gt;&lt;br /&gt;
-… parted /dev/sda&lt;br /&gt;
-… (parted) mklabel msdos&lt;br /&gt;
-… mkpart primary ext4 1MiB 200MiB&lt;br /&gt;
-… set 1 boot on&lt;br /&gt;
-… mkpart primary linux-swap 210MiB 1177MiB&lt;br /&gt;
-… mkpart primary ext4 1024MiB 100%&lt;br /&gt;
-… mkfs.ext4 /dev/sda1&lt;br /&gt;
+&lt;p&gt;Now that the VM has been created with the ISO already &lt;em&gt;inserted&lt;/em&gt;, start the virtual machine and login with user ID and password “root”.&lt;/p&gt;
+
+&lt;custom0&gt;Partitioning the VM&#39;s Hard Drive&lt;/custom0&gt;
+&lt;p&gt;You can &lt;a href=&quot;https://wiki.archlinux.org/index.php/Partitioning&quot;&gt;partition the hard drive&lt;/a&gt; using either a &lt;a href=&quot;https://wiki.archlinux.org/index.php/Partitioning#Single_root_partition&quot;&gt;single root partition&lt;/a&gt; or &lt;a href=&quot;https://wiki.archlinux.org/index.php/Partitioning#Discrete_partitions&quot;&gt;discrete partitions&lt;/a&gt;. I’ve chosen a mixture of the 2 partitioning schemes, 200MB as /boot for installing GRUB, 1024MB swap file and the rest allocated as a single root partition.  &lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Lets use the &lt;code&gt;lsblk&lt;/code&gt; command to take a look at all the available storage devices:&lt;br /&gt;
+&lt;img src=&quot;/public/images/lsblk_output.jpg&quot; alt=&quot;&#39;lsblk&#39;&quot; class=&quot;center-image&quot; /&gt;  &lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;As you can seen in the example above, in my case, “sda” was the VM’s hard drive image. We can find out a bit more about “sda” using &lt;code&gt;parted  /dev/sda  print&lt;/code&gt;:&lt;br /&gt;&lt;br /&gt;
+&lt;img src=&quot;/public/images/parted_print_output.jpg&quot; alt=&quot;&#39;lsblk&#39;&quot; class=&quot;center-image&quot; /&gt;  &lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The following set of command will create the desired partitions:&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;
+parted /dev/sda  
+(parted) mklabel msdos  
+(parted) mkpart primary ext4 1MiB 200MiB  
+(parted) set 1 boot on  
+(parted) mkpart primary linux-swap 210MiB 1177MiB  
+(parted)  mkpart primary ext4 1024MiB 100%  
+&lt;/pre&gt;
+&lt;p&gt;… mkfs.ext4 /dev/sda1&lt;br /&gt;
 … mkfs.ext4 /dev/sda3&lt;br /&gt;
 … Activate swap&lt;br /&gt;
 …… mkswap /dev/sda2&lt;br /&gt;

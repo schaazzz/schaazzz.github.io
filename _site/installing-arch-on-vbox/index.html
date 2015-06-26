@@ -96,13 +96,15 @@
 
 <p>Most of the information below can be found in the <a href="https://wiki.archlinux.org/index.php/Installation_guide">official installation guide</a> but some other information requires some Googling and a little bit of digging around on the Arch Linux wiki.</p>
 
-<custom0>Virtual Machine Configuration</custom0>
+<h2 id="virtual-machine-configuration">Virtual Machine Configuration</h2>
+
+<p>Create a new virtual machine in VirtualBox for Arch Linux (sample configuration shown below). Once the VM is created add the Arch Linux ISO to the CD/DVD drive.</p>
+
+<p><img src="/public/images/vm_config.png" alt="Virtual Machine Configuration" class="center-image" />  </p>
 
 <p>Configuration of the highlighted settings in the screenshot below are important and the rest are optional. Arch Linux can run on a pretty low memory configuration so you can set the size of the display and base memories according to your preferences.  </p>
 
-<p>For storage, I configured a “dynamically allocated” 8.0 GB hard drive image since I wanted to upload the resulting VMs to Dropbox, but I would recommend using a “fixed size” hard drive if you have space to spare on your host machine.</p>
-
-<p><img src="/public/images/vm_config.png" alt="Virtual Machine Configuration" class="center-image" />  </p>
+<p>For storage, I configured a “dynamically allocated” 8.0 GB hard drive image since I wanted to upload the resulting VMs to Dropbox, but I would recommend using a “fixed size” hard drive if you have space to spare on your host machine.  </p>
 
 <p>The network settings are important for installation of Arch Linux. At a minimum, you need to bridge your host machine’s network interface (which is connected to the internet) with your VM as show in the following image:  </p>
 
@@ -110,20 +112,35 @@
 
 <p>In case you would like any folders from your host machine to be accessible in your VM, the simplest way is to add them to the “Machine Folders” section under “Shared Folders” but do not selec the “Auto-mount” option otherwise they will only be accessible as root.</p>
 
-<hr />
+<h2 id="installing-arch-linux">Installing Arch Linux</h2>
 
-<p>…
-… lsblk<br />
-<img src="/public/images/lsblk_output.jpg" alt="'lsblk'" class="center-image" /><br />
-… parted /dev/sda print<br />
-<img src="/public/images/parted_print_output.jpg" alt="'lsblk'" class="center-image" /><br />
-… parted /dev/sda<br />
-… (parted) mklabel msdos<br />
-… mkpart primary ext4 1MiB 200MiB<br />
-… set 1 boot on<br />
-… mkpart primary linux-swap 210MiB 1177MiB<br />
-… mkpart primary ext4 1024MiB 100%<br />
-… mkfs.ext4 /dev/sda1<br />
+<p>Now that the VM has been created with the ISO already <em>inserted</em>, start the virtual machine and login with user ID and password “root”.</p>
+
+<custom0>Partitioning the VM's Hard Drive</custom0>
+<p>You can <a href="https://wiki.archlinux.org/index.php/Partitioning">partition the hard drive</a> using either a <a href="https://wiki.archlinux.org/index.php/Partitioning#Single_root_partition">single root partition</a> or <a href="https://wiki.archlinux.org/index.php/Partitioning#Discrete_partitions">discrete partitions</a>. I’ve chosen a mixture of the 2 partitioning schemes, 200MB as /boot for installing GRUB, 1024MB swap file and the rest allocated as a single root partition.  </p>
+
+<ul>
+  <li>
+    <p>Lets use the <code>lsblk</code> command to take a look at all the available storage devices:<br />
+<img src="/public/images/lsblk_output.jpg" alt="'lsblk'" class="center-image" />  </p>
+  </li>
+  <li>
+    <p>As you can seen in the example above, in my case, “sda” was the VM’s hard drive image. We can find out a bit more about “sda” using <code>parted  /dev/sda  print</code>:<br /><br />
+<img src="/public/images/parted_print_output.jpg" alt="'lsblk'" class="center-image" />  </p>
+  </li>
+  <li>
+    <p>The following set of command will create the desired partitions:</p>
+  </li>
+</ul>
+<pre>
+parted /dev/sda  
+(parted) mklabel msdos  
+(parted) mkpart primary ext4 1MiB 200MiB  
+(parted) set 1 boot on  
+(parted) mkpart primary linux-swap 210MiB 1177MiB  
+(parted)  mkpart primary ext4 1024MiB 100%  
+</pre>
+<p>… mkfs.ext4 /dev/sda1<br />
 … mkfs.ext4 /dev/sda3<br />
 … Activate swap<br />
 …… mkswap /dev/sda2<br />
