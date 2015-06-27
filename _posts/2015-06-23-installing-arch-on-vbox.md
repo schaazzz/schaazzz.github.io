@@ -174,7 +174,16 @@ root@archiso ~ # umount  -R  /mnt
 root@archiso ~ # reboot  
 </pre>
 
-<custom0>Network Configuration</custom0>    
+<custom0>Network Configuration</custom0>
+
+Once you restart your VM and boot into your shiny new Arch Linux installation, you'll realize that the network doesn't work. Even though the network out-of-the-box in the installer, for some reason, it has to be configured from scratch now :angry:. I find this _feature_ <del>very strange</del> extremely annoying and I've seen this in other distros as well, even in some with fancy Live CDs. I wonder why the network configuration is not copied during installation or is it a step that I've missed during installation?
+
+The following network configuration is based on the VM's network configuration shown above. `enp0s3` is the bridged network adapter and `ensp0s8` is the host only network. You need to create network files for both interfaces, e.g. `sudo nano /etc/systemd/network/enp0s3.network` and `sudo nano /etc/systemd/network/enp0s8.network`. The contents of these files for my installation are shown below:
+
+<pre>
+root@archiso ~ # cat  /etc/systemd/network/enp0s3.network  
+</pre>
+
 ... nano /etc/systemd/enp0s3.network  
 ... nano /etc/systemd/enp0s8.network  
 ... nano /etc/resolv.conf  
