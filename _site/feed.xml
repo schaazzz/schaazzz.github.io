@@ -5,8 +5,8 @@
     <description></description>
     <link>schaazzz.github.io/</link>
     <atom:link href="schaazzz.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sat, 27 Jun 2015 10:31:26 +0800</pubDate>
-    <lastBuildDate>Sat, 27 Jun 2015 10:31:26 +0800</lastBuildDate>
+    <pubDate>Sun, 28 Jun 2015 00:06:27 +0800</pubDate>
+    <lastBuildDate>Sun, 28 Jun 2015 00:06:27 +0800</lastBuildDate>
     <generator>Jekyll v2.4.0</generator>
     
       <item>
@@ -33,19 +33,19 @@ sudo systemctl enable sshd.service&lt;/p&gt;
         <link>schaazzz.github.io/configuring-archlinux-vm-dev-env</link>
         <guid isPermaLink="true">schaazzz.github.io/configuring-archlinux-vm-dev-env</guid>
         
-        <category>virtualbox,</category>
+        <category>virtualbox</category>
         
-        <category>virtualmachine,</category>
+        <category>virtualmachine</category>
         
-        <category>archlinux,</category>
+        <category>archlinux</category>
         
-        <category>linux,</category>
+        <category>linux</category>
         
-        <category>development,</category>
+        <category>development</category>
         
-        <category>python,</category>
+        <category>python</category>
         
-        <category>ruby,</category>
+        <category>ruby</category>
         
         <category>ssh</category>
         

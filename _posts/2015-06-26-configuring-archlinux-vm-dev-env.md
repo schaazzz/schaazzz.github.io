@@ -2,7 +2,7 @@
 layout: post
 title: Configuring Your Arch Linux VM for Development
 author: Shahzeb Ihsan
-tags: virtualbox, virtualmachine, archlinux, linux, development, python, ruby, ssh
+tags: virtualbox virtualmachine archlinux linux development python ruby ssh
 ---
 
 sudo ln -s /usr/bin/python2 /usr/bin/python
