@@ -5,8 +5,8 @@
     <description></description>
     <link>schaazzz.github.io/</link>
     <atom:link href="schaazzz.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Fri, 26 Jun 2015 17:43:05 +0800</pubDate>
-    <lastBuildDate>Fri, 26 Jun 2015 17:43:05 +0800</lastBuildDate>
+    <pubDate>Fri, 26 Jun 2015 23:14:09 +0800</pubDate>
+    <lastBuildDate>Fri, 26 Jun 2015 23:14:09 +0800</lastBuildDate>
     <generator>Jekyll v2.4.0</generator>
     
       <item>
@@ -58,7 +58,19 @@ sudo systemctl enable sshd.service&lt;/p&gt;
 
 &lt;p&gt;Most of the information below can be found in the &lt;a href=&quot;https://wiki.archlinux.org/index.php/Installation_guide&quot;&gt;official installation guide&lt;/a&gt; but some other information requires some Googling and a little bit of digging around on the Arch Linux wiki.&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;&lt;em&gt;Virtual Machine Configuration&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Virtual Machine Configuration&lt;/strong&gt;  &lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/public/images/vm_config.png&quot; alt=&quot;Virtual Machine Configuration&quot; /&gt;  &lt;/p&gt;
+
+&lt;p&gt;Configuration of the highlighted settings are important and the rest are optional. Arch Linux can run on a pretty low memory configuration so you can set the size of the display and base memories according to your preferences.  &lt;/p&gt;
+
+&lt;p&gt;For storage, I configured a “dynamically allocated” 8.0 GB hard drive image since I wanted to upload the resulting VMs to Dropbox, but I would recommend using a “fixed size” hard drive if you have space to spare on your host machine.  &lt;/p&gt;
+
+&lt;p&gt;The network settings are important for installation of Arch Linux. At a minimum, you need to bridge your host machine’s network interface (which is connected to the interface) with your VM as show in the following image:  &lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/public/images/vm_config_network.png&quot; alt=&quot;Virtual Machine Configuration - Network&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;In case you would like any folders from your host machine to be accessible in your VM, the simplest way is to add them to the “Machine Folders” section under “Shared Folders” but do not selec the “Auto-mount” option otherwise they will only be accessible as root.&lt;/p&gt;
 
 &lt;hr /&gt;
 
@@ -155,13 +167,13 @@ visudo --&amp;gt; search for &quot;# User privilege specification&quot; and add 
         <link>schaazzz.github.io/installing-arch-on-vbox</link>
         <guid isPermaLink="true">schaazzz.github.io/installing-arch-on-vbox</guid>
         
-        <category>virtualbox,</category>
+        <category>virtualbox</category>
         
-        <category>virtualmachine,</category>
+        <category>virtualmachine</category>
         
-        <category>archlinux,</category>
+        <category>archlinux</category>
         
-        <category>linux,</category>
+        <category>linux</category>
         
         <category>development</category>
         
