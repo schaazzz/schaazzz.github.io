@@ -135,38 +135,39 @@ And finally, generate _"fstab"_:
 root@archiso ~ # genfstab  -U  -p  /mnt  >>  /mnt/etc/fstab  
 </pre>
 
-<custom0>Chroot into Your Newly Installed Base System</custom0>  
+Chroot into Your Newly Installed Base System
+---
 
-Since our Arch Linux system is now installed we can _chroot_ into and configure it...
+- Since our Arch Linux system is now installed we can _chroot_ into and configure it...
 
 <pre>
 root@archiso ~ # arch-chroot  /mnt  /bin/bash  
 </pre>
 
-Set the root password...  
+- Set the root password...  
 
 <pre>
 root@archiso ~ # passwd
 </pre>
 
-If you want, you can now create a user (recommended):
+- If you want, you can now create a user (recommended):
 
 <pre>
-root@archiso ~ # useradd  <username>  
-root@archiso ~ # passwd  <username>
+root@archiso ~ # useradd  [username]  
+root@archiso ~ # passwd  [username]
 </pre>
 
-I would also recommend adding the user you created above to the SUDOers list by using the `visudo` command to open _sudo's_ configuration file. First we'll have to install _Vim_ using `pacman -S vim`. Once _Vim_ is installed, search for "## User privilege specification" and below the configuration for _root_ add your username: `<username> ALL = (ALL) ALL`
+- I would also recommend adding the user you created above to the SUDOers list by using the `visudo` command to open _sudo's_ configuration file. First we'll have to install _Vim_ using `pacman -S vim`. Once _Vim_ is installed, search for "## User privilege specification" and below the configuration for _root_ add your username: `<username> ALL = (ALL) ALL`
 
-Download, install and configure grub...
+- Download, install and configure grub...
 
 <pre>
 root@archiso ~ # pacman  -S  grub  os-prober  
 root@archiso ~ # grub-install  --recheck  /dev/sda  
-</pre>
 root@archiso ~ # grub-mkconfig  -o  /boot/grub/grub.cfg  
+</pre>
 
-Almost, done --- exit from _chroot_, unmount the mounted partitions and reboot (or shutdown). You can also remove the Arch Linux ISO from the VM's CD/DVD drive...
+- Almost, done --- exit from _chroot_, unmount the mounted partitions and reboot (or shutdown). You can also remove the Arch Linux ISO from the VM's CD/DVD drive...
 
 <pre>
 root@archiso ~ # exit  
@@ -174,60 +175,118 @@ root@archiso ~ # umount  -R  /mnt
 root@archiso ~ # reboot  
 </pre>
 
-<custom0>Network Configuration</custom0>
+Network Configuration
+---
 
-Once you restart your VM and boot into your shiny new Arch Linux installation, you'll realize that the network doesn't work. Even though the network out-of-the-box in the installer, for some reason, it has to be configured from scratch now :angry:. I find this _feature_ <del>very strange</del> extremely annoying and I've seen this in other distros as well, even in some with fancy Live CDs. I wonder why the network configuration is not copied during installation or is it a step that I've missed during installation?
+Once you restart your VM (you can now login as the new user you created above) and boot into your shiny new Arch Linux installation, you'll realize that the network doesn't work. Even though the network out-of-the-box in the installer, for some reason, it has to be configured from scratch now :angry:. I find this _feature_ <del>very strange</del> extremely annoying and I've seen this in other distros as well, even in some with fancy Live CDs. I wonder why the network configuration is not copied during installation or is it a step that I've missed during installation?
 
-The following network configuration is based on the VM's network configuration shown above. `enp0s3` is the bridged network adapter and `ensp0s8` is the host only network. You need to create network files for both interfaces, e.g. `sudo nano /etc/systemd/network/enp0s3.network` and `sudo nano /etc/systemd/network/enp0s8.network`. The contents of these files for my installation are shown below:
+- The following network configuration is based on the VM's network configuration shown above. `enp0s3` is the bridged network adapter and `ensp0s8` is the host only network. You need to create network files for both interfaces, e.g. `sudo nano /etc/systemd/network/enp0s3.network` and `sudo nano /etc/systemd/network/enp0s8.network`. The contents of these files for my installation are shown below:
 
 <pre>
-root@archiso ~ # cat  /etc/systemd/network/enp0s3.network  
+$ cat  /etc/systemd/network/enp0s3.network  
+[Match]
+Name = enp0s3
+
+[Network]
+DHCP = ipv4
+DNS = 8.8.8.8
+DNS = 8.8.4.4
+DNS = 123.241.172.101
+DNS = 23.126.223.57
+DNS = 210.57.226.138
+
+[DHCP]
+RouteMetric = 10
 </pre>
 
-... nano /etc/systemd/enp0s3.network  
-... nano /etc/systemd/enp0s8.network  
-... nano /etc/resolv.conf  
-... systemctl enable dhcpcd@enp0s3.service  
-... systemctl enable dhcpcd@enp0s8.service  
-... systemctl restart systemd-networkd  
-... systemctl status systemd-networkd  
-... networkctl  
-... pacman -Syu
+<pre>
+$ cat  /etc/systemd/network/enp0s8.network
 
----------------------
+[Match]
+Name = enp0s8
 
-**Installing VirtualBox Guest Addition**  
-... pacman -S virtualbox-guest-modules virtualbox-guest-utils  
-... modprobe -a vboxguest vboxsf vboxvideo  
+[Network]
+DHCP = ipv4
 
----------------------
+[DHCP]
+RouteMetric = 20
+</pre>
 
-**Installing LXQT**  
-... pacman -S lxqt  
-... pacman -S openbox  
-... pacman -S sddm  
+- I manually specified public DNS for the interface which connects to the internet, you only need to do this if you have internet connectivity but are unable to resolve host names. In case you add public DNS to your network configuration, you might still need to update _resolv.conf_. The contents of my _resolv.conf_:
 
----------------------
+<pre>
+$ cat  /etc/resolv.conf
+nameserver 8.8.8.8
+nameserver 8.8.4.4
+nameserver 123.241.172.101
+nameserver 23.126.223.57
+nameserver 210.57.226.138
+</pre>
 
--------------> ???  
-pacman -S lxqt openbox obconf xf86-video-fbdev xorg-server xorg-server-utils xorg-xinit mesa xf86-input-keyboard xf86-input-mouse xterm ttf-dejavu libxkbcommon libxkbcommon-x11
-Then nano .xinitrc and type "exec startlxqt" save
-startx and it's working.  
-<-------------  
+- Now enable DHCP for both network configurations and restart your network service.  
 
---------------------
+<pre>
+$ sudo  systemctl  enable  dhcpcd@enp0s3.service  
+$ sudo  systemctl  enable  dhcpcd@enp0s8.service  
+$ sudo  systemctl  restart  systemd-networkd  
+$ networkctl  
+IDX LINK             TYPE               OPERATIONAL SETUP
+  1 lo               loopback           carrier     unmanaged
+  2 enp0s3           ether              routable    configured
+  3 enp0s8           ether              routable    configuring
+</pre>
 
-... nano /etc/X11/xinit/xinitrc ==> add "exec startlxqt"  
-... cp /etc/X11/xinit/xinitrc ~/.xinitrc  
-... sddm --example-config > /etc/sddm.conf  
-... systemctl enable sddm.service  
+- Now that our network is all configured, lets update the system:
 
---------------------
+<pre>
+$ sudo  pacman  -Syu
+</pre>
 
-**Installing XFCE**  
-... pacman -S xfce4 xorg lxdm  
-... systemctl enable lxdm.service  
+Installing VirtualBox Guest Addition
+---
 
---------------------
+This is required if you want to mount shared folders using _vboxsf_ or would like to share your VM's clipboard with your host machine or vice-versa.
 
-**Add user**  
+<pre>
+$ sudo  pacman  -S  virtualbox-guest-modules  virtualbox-guest-utils  
+$ sudo  modprobe  -a  vboxguest  vboxsf  vboxvideo  
+</pre>
+
+
+Installing LXQT
+---
+
+This step is only required if you want to install LXQT (which I prefer over XFCE). In case you would like to use XFCE, you move on to the next section which lists the steps for installing XFCE.
+
+Let's download and install the LXQT program group, OpenBox (LXQT's default window manager) and SDDM (LXQT's preferred display manager)
+<pre>
+$ pacman  -S  lxqt  openbox  sddm  
+</pre>
+
+Doing `startlxqt` at this point doesn't work (ofcourse, why make it so simple?). A bit of Googling led me to the following list of packages that need to e installed as well:
+
+<pre>
+$ sudo  pacman  -S  obconf  xf86-video-fbdev  xorg-server  xorg-server-utils  xorg-xinit  \
+                    mesa  xf86-input-keyboard  xf86-input-mouse  xterm  ttf-dejavu  libxkbcommon  \
+                    libxkbcommon-x11
+</pre>
+
+Now add `exec startlxqt` to `/etc/X11/xinit/xinitrc` and 'cp /etc/X11/xinit/xinitrc ~./xinitrc'. Now generate configuration for the display manager and enable the display manager service.
+
+<pre>
+$ sudo  sddm  --example-config  >  /etc/sddm.conf  
+$ sudo  systemctl  enable  sddm.service  
+</pre>
+
+Now start LXQT by executing `startx`. Next time you restart your VM, you should see a graphical login manager and once you log in, LXQT should start automatically.
+
+Installing XFCE
+---
+
+Since Arch Linux's preferred desktop manager is XFCE, it is really easy to install. Just install the XFCE program group, XORG and LXDM (Arch Linux's recommend display manager for XFCE). Afterwards, enable the display manager service and then you can start XFCE. Next time you restart your VM, you should see a graphical login manager and once you log in, XFCE should start automatically.
+
+<pre>
+$ sudo  pacman  -S  xfce4  xorg  lxdm  
+$ sudo  systemctl  enable  lxdm.service  
+$ startxfce
+</pre>

@@ -5,8 +5,8 @@
     <description></description>
     <link>schaazzz.github.io/</link>
     <atom:link href="schaazzz.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sat, 27 Jun 2015 02:53:50 +0800</pubDate>
-    <lastBuildDate>Sat, 27 Jun 2015 02:53:50 +0800</lastBuildDate>
+    <pubDate>Sat, 27 Jun 2015 10:31:26 +0800</pubDate>
+    <lastBuildDate>Sat, 27 Jun 2015 10:31:26 +0800</lastBuildDate>
     <generator>Jekyll v2.4.0</generator>
     
       <item>
@@ -76,9 +76,10 @@ sudo systemctl enable sshd.service&lt;/p&gt;
 
 &lt;h2 id=&quot;installing-arch-linux&quot;&gt;Installing Arch Linux&lt;/h2&gt;
 
-&lt;p&gt;Now that the VM has been created with the ISO already &lt;em&gt;inserted&lt;/em&gt;, start the virtual machine and login with user ID and password “root”.&lt;/p&gt;
+&lt;p&gt;Now that the VM has been created with the ISO already &lt;em&gt;inserted&lt;/em&gt;, start the virtual machine &lt;del&gt;and login with user ID and password “root”&lt;/del&gt;.  &lt;/p&gt;
 
 &lt;custom0&gt;Partitioning the VM&#39;s Hard Drive&lt;/custom0&gt;
+
 &lt;p&gt;You can &lt;a href=&quot;https://wiki.archlinux.org/index.php/Partitioning&quot;&gt;partition the hard drive&lt;/a&gt; using either a &lt;a href=&quot;https://wiki.archlinux.org/index.php/Partitioning#Single_root_partition&quot;&gt;single root partition&lt;/a&gt; or &lt;a href=&quot;https://wiki.archlinux.org/index.php/Partitioning#Discrete_partitions&quot;&gt;discrete partitions&lt;/a&gt;. I’ve chosen a mixture of the 2 partitioning schemes, 200MB as /boot for installing GRUB, 1024MB swap file and the rest allocated as a single root partition.  &lt;/p&gt;
 
 &lt;ul&gt;
@@ -100,6 +101,7 @@ loop2              7:2    0    256M   0  loop
 &lt;ul&gt;
   &lt;li&gt;As you can seen in the example above, in my case, &lt;em&gt;“sda”&lt;/em&gt; was the VM’s hard drive image. We can find out a bit more about “sda” using &lt;code&gt;parted  /dev/sda  print&lt;/code&gt;:&lt;br /&gt;  &lt;/li&gt;
 &lt;/ul&gt;
+
 &lt;pre&gt;
 root@archiso ~ # parted  /dev/sda  print
 Error:  /dev/sda:  unrecognised  disk  label
@@ -111,8 +113,9 @@ Disk Flags:
 &lt;/pre&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;The following set of command will create the desired partitions:&lt;/li&gt;
+  &lt;li&gt;The following set of &lt;code&gt;parted&lt;/code&gt; commands will create the desired partitions (200MB as /boot for installing GRUB, 1024MB swap file and the rest allocated as a single root partition):&lt;/li&gt;
 &lt;/ul&gt;
+
 &lt;pre&gt;
 root@archiso ~ # parted  /dev/sda  
 (parted)  mklabel  msdos  
@@ -120,95 +123,247 @@ root@archiso ~ # parted  /dev/sda
 (parted)  set  1  boot  on  
 (parted)  mkpart  primary  linux-swap  210MiB  1177MiB  
 (parted)  mkpart  primary  ext4  1024MiB  100%  
+(parted)  print
+Model:  ATA  VBOX  HARDDISK  (scsi)
+Disk  /dev/sda:  8590MB
+Sector  size  (logical/physical):  512B/512B
+Partition  Table:  msdos
+Disk  Flags:
+
+Number   Start    End      Size     Type      File system   Flags
+ 1       1049kB   210MB    209MB    primary                 boot
+ 2       220MB    1234MB   1014MB   primary
+ 3       1234MB   8590MB   7356MB   primary
 &lt;/pre&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;Let’s format the boot and root partitions&lt;/li&gt;
+  &lt;li&gt;Using &lt;code&gt;lsblk&lt;/code&gt; again, we can see the new partition table, note that &lt;em&gt;“sda”&lt;/em&gt; now has 3 subentries: &lt;em&gt;“sda1”&lt;/em&gt; (/boot), &lt;em&gt;“sda2”&lt;/em&gt; (swap) and &lt;em&gt;“sda3”&lt;/em&gt; (root partition).&lt;/li&gt;
 &lt;/ul&gt;
+
 &lt;pre&gt;
-root@archiso ~ # mkfs.ext4 /dev/sda1  
-root@archiso ~ # mkfs.ext4 /dev/sda3  
+NAME            MAJ:MIN RM   SIZE RO TYPE MOUNTPOINT
+sda               8:0    0     8G  0 disk
+├─sda1            8:1    0   199M  0 part
+├─sda2            8:2    0   967M  0 part
+└─sda3            8:3    0   6.9G  0 part
+sr0              11:0    1   637M  0 rom  /run/archiso/bootmnt
+loop0             7:0    0 278.2M  1 loop /run/archiso/sfs/airootfs
+loop1             7:1    0    32G  1 loop
+└─arch_airootfs 254:0    0    32G  0 dm   /
+loop2             7:2    0   256M  0 loop
+└─arch_airootfs 254:0    0    32G  0 dm   /
 &lt;/pre&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;Then activate the swap partition:&lt;/li&gt;
+  &lt;li&gt;Let’s format the boot and root partitions to Ext4. For this we will use the &lt;code&gt;mkfs.ext4&lt;/code&gt; command:&lt;/li&gt;
 &lt;/ul&gt;
+
 &lt;pre&gt;
-root@archiso ~ # mkswap /dev/sda2  
-root@archiso ~ # swapon /dev/sda2  
+root@archiso ~ # mkfs.ext4  /dev/sda1  
+root@archiso ~ # mkfs.ext4  /dev/sda3  
 &lt;/pre&gt;
-&lt;p&gt;… mount /dev/sda3 /mnt&lt;br /&gt;
-… mkdir -p /mnt/boot&lt;br /&gt;
-… mount /dev/sda1 /mnt/boot&lt;br /&gt;
-… Install the base system&lt;br /&gt;
-…… pacstrap -i /mnt base base-devel&lt;br /&gt;
-… genfstab -U -p /mnt » /mnt/etc/fstab  &lt;/p&gt;
 
-&lt;hr /&gt;
+&lt;ul&gt;
+  &lt;li&gt;Now we’ll format and activate the swap partition. &lt;code&gt;mkswap&lt;/code&gt; will format &lt;em&gt;“/dev/sda2”&lt;/em&gt; as swap and &lt;code&gt;swapon&lt;/code&gt; will tell the kernel that this is our swap partition.&lt;/li&gt;
+&lt;/ul&gt;
 
-&lt;p&gt;&lt;strong&gt;chroot into your newly installed base system&lt;/strong&gt;&lt;br /&gt;
-…… arch-chroot /mnt /bin/bash&lt;br /&gt;
-… passwd&lt;br /&gt;
-… pacman -S grub os-prober&lt;br /&gt;
-… grub-install –recheck /dev/sda&lt;br /&gt;
-… grub-mkconfig -o /boot/grub/grub.cfg&lt;br /&gt;
-… exit&lt;br /&gt;
-… umount -R /mnt&lt;br /&gt;
-… reboot  &lt;/p&gt;
+&lt;pre&gt;
+root@archiso ~ # mkswap  /dev/sda2  
+root@archiso ~ # swapon  /dev/sda2  
+&lt;/pre&gt;
 
-&lt;hr /&gt;
+&lt;custom0&gt;Installing the Base System&lt;/custom0&gt;
 
-&lt;p&gt;&lt;strong&gt;Network Configuration&lt;/strong&gt;&lt;br /&gt;
-… nano /etc/systemd/enp0s3.network&lt;br /&gt;
-… nano /etc/systemd/enp0s8.network&lt;br /&gt;
-… nano /etc/resolv.conf&lt;br /&gt;
-… systemctl enable dhcpcd@enp0s3.service&lt;br /&gt;
-… systemctl enable dhcpcd@enp0s8.service&lt;br /&gt;
-… systemctl restart systemd-networkd&lt;br /&gt;
-… systemctl status systemd-networkd&lt;br /&gt;
-… networkctl&lt;br /&gt;
-… pacman -Syu&lt;/p&gt;
+&lt;p&gt;Mount the root and boot partitions:&lt;/p&gt;
 
-&lt;hr /&gt;
+&lt;pre&gt;
+root@archiso ~ # mount  /dev/sda3  /mnt  
+root@archiso ~ # mkdir  -p  /mnt/boot  
+root@archiso ~ # mount  /dev/sda1  /mnt/boot  
+&lt;/pre&gt;
 
-&lt;p&gt;&lt;strong&gt;Installing VirtualBox Guest Addition&lt;/strong&gt;&lt;br /&gt;
-… pacman -S virtualbox-guest-modules virtualbox-guest-utils&lt;br /&gt;
-… modprobe -a vboxguest vboxsf vboxvideo  &lt;/p&gt;
+&lt;p&gt;Install the base system using &lt;code&gt;pacstrap&lt;/code&gt;:  &lt;/p&gt;
 
-&lt;hr /&gt;
+&lt;pre&gt;
+root@archiso ~ # pacstrap  -i  /mnt  base  base-devel  
+&lt;/pre&gt;
 
-&lt;p&gt;&lt;strong&gt;Installing LXQT&lt;/strong&gt;&lt;br /&gt;
-… pacman -S lxqt&lt;br /&gt;
-… pacman -S openbox&lt;br /&gt;
-… pacman -S sddm  &lt;/p&gt;
+&lt;p&gt;And finally, generate &lt;em&gt;“fstab”&lt;/em&gt;:&lt;/p&gt;
 
-&lt;hr /&gt;
+&lt;pre&gt;
+root@archiso ~ # genfstab  -U  -p  /mnt  &amp;gt;&amp;gt;  /mnt/etc/fstab  
+&lt;/pre&gt;
 
-&lt;p&gt;————-&amp;gt; ???&lt;br /&gt;
-pacman -S lxqt openbox obconf xf86-video-fbdev xorg-server xorg-server-utils xorg-xinit mesa xf86-input-keyboard xf86-input-mouse xterm ttf-dejavu libxkbcommon libxkbcommon-x11
-Then nano .xinitrc and type “exec startlxqt” save
-startx and it’s working.&lt;br /&gt;
-&amp;lt;————-  &lt;/p&gt;
+&lt;h2 id=&quot;chroot-into-your-newly-installed-base-system&quot;&gt;Chroot into Your Newly Installed Base System&lt;/h2&gt;
 
-&lt;hr /&gt;
+&lt;ul&gt;
+  &lt;li&gt;Since our Arch Linux system is now installed we can &lt;em&gt;chroot&lt;/em&gt; into and configure it…&lt;/li&gt;
+&lt;/ul&gt;
 
-&lt;p&gt;… nano /etc/X11/xinit/xinitrc ==&amp;gt; add “exec startlxqt”&lt;br /&gt;
-… cp /etc/X11/xinit/xinitrc ~/.xinitrc&lt;br /&gt;
-… sddm –example-config &amp;gt; /etc/sddm.conf&lt;br /&gt;
-… systemctl enable sddm.service  &lt;/p&gt;
+&lt;pre&gt;
+root@archiso ~ # arch-chroot  /mnt  /bin/bash  
+&lt;/pre&gt;
 
-&lt;hr /&gt;
+&lt;ul&gt;
+  &lt;li&gt;Set the root password…  &lt;/li&gt;
+&lt;/ul&gt;
 
-&lt;p&gt;&lt;strong&gt;Installing XFCE&lt;/strong&gt;&lt;br /&gt;
-… pacman -S xfce4 xorg lxdm&lt;br /&gt;
-… systemctl enable lxdm.service  &lt;/p&gt;
+&lt;pre&gt;
+root@archiso ~ # passwd
+&lt;/pre&gt;
 
-&lt;hr /&gt;
+&lt;ul&gt;
+  &lt;li&gt;If you want, you can now create a user (recommended):&lt;/li&gt;
+&lt;/ul&gt;
 
-&lt;p&gt;&lt;strong&gt;Add user&lt;/strong&gt;&lt;br /&gt;
-adduser &lt;username&gt;  
-passwd &lt;username&gt;  
-visudo --&amp;gt; search for &quot;# User privilege specification&quot; and add &quot;&lt;username&gt; ALL = (ALL) ALL&quot;  &lt;/username&gt;&lt;/username&gt;&lt;/username&gt;&lt;/p&gt;
+&lt;pre&gt;
+root@archiso ~ # useradd  [username]  
+root@archiso ~ # passwd  [username]
+&lt;/pre&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;I would also recommend adding the user you created above to the SUDOers list by using the &lt;code&gt;visudo&lt;/code&gt; command to open &lt;em&gt;sudo’s&lt;/em&gt; configuration file. First we’ll have to install &lt;em&gt;Vim&lt;/em&gt; using &lt;code&gt;pacman -S vim&lt;/code&gt;. Once &lt;em&gt;Vim&lt;/em&gt; is installed, search for “## User privilege specification” and below the configuration for &lt;em&gt;root&lt;/em&gt; add your username: &lt;code&gt;&amp;lt;username&amp;gt; ALL = (ALL) ALL&lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Download, install and configure grub…&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;
+root@archiso ~ # pacman  -S  grub  os-prober  
+root@archiso ~ # grub-install  --recheck  /dev/sda  
+root@archiso ~ # grub-mkconfig  -o  /boot/grub/grub.cfg  
+&lt;/pre&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Almost, done — exit from &lt;em&gt;chroot&lt;/em&gt;, unmount the mounted partitions and reboot (or shutdown). You can also remove the Arch Linux ISO from the VM’s CD/DVD drive…&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;
+root@archiso ~ # exit  
+root@archiso ~ # umount  -R  /mnt  
+root@archiso ~ # reboot  
+&lt;/pre&gt;
+
+&lt;h2 id=&quot;network-configuration&quot;&gt;Network Configuration&lt;/h2&gt;
+
+&lt;p&gt;Once you restart your VM (you can now login as the new user you created above) and boot into your shiny new Arch Linux installation, you’ll realize that the network doesn’t work. Even though the network out-of-the-box in the installer, for some reason, it has to be configured from scratch now &lt;img class=&quot;emoji&quot; title=&quot;:angry:&quot; alt=&quot;:angry:&quot; src=&quot;https://assets.github.com/images/icons/emoji/unicode/1f620.png&quot; height=&quot;20&quot; width=&quot;20&quot; align=&quot;absmiddle&quot; /&gt;. I find this &lt;em&gt;feature&lt;/em&gt; &lt;del&gt;very strange&lt;/del&gt; extremely annoying and I’ve seen this in other distros as well, even in some with fancy Live CDs. I wonder why the network configuration is not copied during installation or is it a step that I’ve missed during installation?&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;The following network configuration is based on the VM’s network configuration shown above. &lt;code&gt;enp0s3&lt;/code&gt; is the bridged network adapter and &lt;code&gt;ensp0s8&lt;/code&gt; is the host only network. You need to create network files for both interfaces, e.g. &lt;code&gt;sudo nano /etc/systemd/network/enp0s3.network&lt;/code&gt; and &lt;code&gt;sudo nano /etc/systemd/network/enp0s8.network&lt;/code&gt;. The contents of these files for my installation are shown below:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;
+$ cat  /etc/systemd/network/enp0s3.network  
+[Match]
+Name = enp0s3
+
+[Network]
+DHCP = ipv4
+DNS = 8.8.8.8
+DNS = 8.8.4.4
+DNS = 123.241.172.101
+DNS = 23.126.223.57
+DNS = 210.57.226.138
+
+[DHCP]
+RouteMetric = 10
+&lt;/pre&gt;
+
+&lt;pre&gt;
+$ cat  /etc/systemd/network/enp0s8.network
+
+[Match]
+Name = enp0s8
+
+[Network]
+DHCP = ipv4
+
+[DHCP]
+RouteMetric = 20
+&lt;/pre&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;I manually specified public DNS for the interface which connects to the internet, you only need to do this if you have internet connectivity but are unable to resolve host names. In case you add public DNS to your network configuration, you might still need to update &lt;em&gt;resolv.conf&lt;/em&gt;. The contents of my &lt;em&gt;resolv.conf&lt;/em&gt;:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;
+$ cat  /etc/resolv.conf
+nameserver 8.8.8.8
+nameserver 8.8.4.4
+nameserver 123.241.172.101
+nameserver 23.126.223.57
+nameserver 210.57.226.138
+&lt;/pre&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Now enable DHCP for both network configurations and restart your network service.  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;
+$ sudo  systemctl  enable  dhcpcd@enp0s3.service  
+$ sudo  systemctl  enable  dhcpcd@enp0s8.service  
+$ sudo  systemctl  restart  systemd-networkd  
+$ networkctl  
+IDX LINK             TYPE               OPERATIONAL SETUP
+  1 lo               loopback           carrier     unmanaged
+  2 enp0s3           ether              routable    configured
+  3 enp0s8           ether              routable    configuring
+&lt;/pre&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Now that our network is all configured, lets update the system:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;
+$ sudo  pacman  -Syu
+&lt;/pre&gt;
+
+&lt;h2 id=&quot;installing-virtualbox-guest-addition&quot;&gt;Installing VirtualBox Guest Addition&lt;/h2&gt;
+
+&lt;p&gt;This is required if you want to mount shared folders using &lt;em&gt;vboxsf&lt;/em&gt; or would like to share your VM’s clipboard with your host machine or vice-versa.&lt;/p&gt;
+
+&lt;pre&gt;
+$ sudo  pacman  -S  virtualbox-guest-modules  virtualbox-guest-utils  
+$ sudo  modprobe  -a  vboxguest  vboxsf  vboxvideo  
+&lt;/pre&gt;
+
+&lt;h2 id=&quot;installing-lxqt&quot;&gt;Installing LXQT&lt;/h2&gt;
+
+&lt;p&gt;This step is only required if you want to install LXQT (which I prefer over XFCE). In case you would like to use XFCE, you move on to the next section which lists the steps for installing XFCE.&lt;/p&gt;
+
+&lt;p&gt;Let’s download and install the LXQT program group, OpenBox (LXQT’s default window manager) and SDDM (LXQT’s preferred display manager)&lt;/p&gt;
+&lt;pre&gt;
+$ pacman  -S  lxqt  openbox  sddm  
+&lt;/pre&gt;
+
+&lt;p&gt;Doing &lt;code&gt;startlxqt&lt;/code&gt; at this point doesn’t work (ofcourse, why make it so simple?). A bit of Googling led me to the following list of packages that need to e installed as well:&lt;/p&gt;
+
+&lt;pre&gt;
+$ sudo  pacman  -S  obconf  xf86-video-fbdev  xorg-server  xorg-server-utils  xorg-xinit  \
+                    mesa  xf86-input-keyboard  xf86-input-mouse  xterm  ttf-dejavu  libxkbcommon  \
+                    libxkbcommon-x11
+&lt;/pre&gt;
+
+&lt;p&gt;Now add &lt;code&gt;exec startlxqt&lt;/code&gt; to &lt;code&gt;/etc/X11/xinit/xinitrc&lt;/code&gt; and ‘cp /etc/X11/xinit/xinitrc ~./xinitrc’. Now generate configuration for the display manager and enable the display manager service.&lt;/p&gt;
+
+&lt;pre&gt;
+$ sudo  sddm  --example-config  &amp;gt;  /etc/sddm.conf  
+$ sudo  systemctl  enable  sddm.service  
+&lt;/pre&gt;
+
+&lt;p&gt;Now start LXQT by executing &lt;code&gt;startx&lt;/code&gt;. Next time you restart your VM, you should see a graphical login manager and once you log in, LXQT should start automatically.&lt;/p&gt;
+
+&lt;h2 id=&quot;installing-xfce&quot;&gt;Installing XFCE&lt;/h2&gt;
+
+&lt;p&gt;Since Arch Linux’s preferred desktop manager is XFCE, it is really easy to install. Just install the XFCE program group, XORG and LXDM (Arch Linux’s recommend display manager for XFCE). Afterwards, enable the display manager service and then you can start XFCE. Next time you restart your VM, you should see a graphical login manager and once you log in, XFCE should start automatically.&lt;/p&gt;
+
+&lt;pre&gt;
+$ sudo  pacman  -S  xfce4  xorg  lxdm  
+$ sudo  systemctl  enable  lxdm.service  
+$ startxfce
+&lt;/pre&gt;
 </description>
         <pubDate>Tue, 23 Jun 2015 00:00:00 +0800</pubDate>
         <link>schaazzz.github.io/installing-arch-on-vbox</link>
