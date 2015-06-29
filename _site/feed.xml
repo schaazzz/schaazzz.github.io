@@ -5,8 +5,8 @@
     <description></description>
     <link>schaazzz.github.io/</link>
     <atom:link href="schaazzz.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sat, 06 Jun 2015 02:51:15 +0800</pubDate>
-    <lastBuildDate>Sat, 06 Jun 2015 02:51:15 +0800</lastBuildDate>
+    <pubDate>Mon, 29 Jun 2015 17:26:52 +0800</pubDate>
+    <lastBuildDate>Mon, 29 Jun 2015 17:26:52 +0800</lastBuildDate>
     <generator>Jekyll v2.4.0</generator>
     
       <item>
@@ -48,6 +48,27 @@ sudo systemctl enable sshd.service&lt;/p&gt;
         <category>ruby</category>
         
         <category>ssh</category>
+        
+        
+      </item>
+    
+      <item>
+        <title>Download Arch Linux VMs</title>
+        <description>&lt;p&gt;I have uploaded 3 Arch Linux Virtual Machines to Dropbox. One without any desktop environment, another with LXQT and a third with XFCE. You will need to create a new user since these VMs only contain the default “root” account with password “root”.&lt;/p&gt;
+</description>
+        <pubDate>Wed, 24 Jun 2015 00:00:00 +0800</pubDate>
+        <link>schaazzz.github.io/download-archlinux-vms</link>
+        <guid isPermaLink="true">schaazzz.github.io/download-archlinux-vms</guid>
+        
+        <category>virtualbox</category>
+        
+        <category>virtualmachine</category>
+        
+        <category>archlinux</category>
+        
+        <category>linux</category>
+        
+        <category>development</category>
         
         
       </item>
