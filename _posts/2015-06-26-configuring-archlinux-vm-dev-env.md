@@ -5,6 +5,8 @@ author: Shahzeb Ihsan
 tags: virtualbox virtualmachine archlinux linux development python ruby ssh
 ---
 
+I am stuck on a Windows machine most of the time, but I prefer Linux. Also, Ruby on Rails on Windows is a real PITA. So, I configure a VM with all the necessary development tools and share my project/work folders with the VM and mount it using `mount.vboxsf`. Then I run the VM in headless mode and SSH into it. <!--more-->
+
 Installing Python
 ---
 

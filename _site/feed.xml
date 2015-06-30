@@ -5,13 +5,15 @@
     <description></description>
     <link>schaazzz.github.io/</link>
     <atom:link href="schaazzz.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 30 Jun 2015 18:01:53 +0800</pubDate>
-    <lastBuildDate>Tue, 30 Jun 2015 18:01:53 +0800</lastBuildDate>
+    <pubDate>Tue, 30 Jun 2015 18:14:48 +0800</pubDate>
+    <lastBuildDate>Tue, 30 Jun 2015 18:14:48 +0800</lastBuildDate>
     <generator>Jekyll v2.4.0</generator>
     
       <item>
         <title>Configuring Your Arch Linux VM for Development</title>
-        <description>&lt;h2 id=&quot;installing-python&quot;&gt;Installing Python&lt;/h2&gt;
+        <description>&lt;p&gt;I am stuck on a Windows machine most of the time, but I prefer Linux. Also, Ruby on Rails on Windows is a real PITA. So, I configure a VM with all the necessary development tools and share my project/work folders with the VM and mount it using &lt;code&gt;mount.vboxsf&lt;/code&gt;. Then I run the VM in headless mode and SSH into it. &lt;!--more--&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;installing-python&quot;&gt;Installing Python&lt;/h2&gt;
 
 &lt;ul&gt;
   &lt;li&gt;If Python is not already installed, install it using &lt;code&gt;$ pacman -S python2&lt;/code&gt; (replace with python3 if you need Python 3).  &lt;/li&gt;
@@ -101,7 +103,7 @@ $ sudo  systemctl  enable  sshd.service
     
       <item>
         <title>Download Arch Linux VMs</title>
-        <description>&lt;p&gt;I have uploaded 3 Arch Linux Virtual Machines to Dropbox. One without any desktop environment (command line only), another with LXQT and a third with XFCE. You will need to create a new user since these VMs only contain the default “root” account with password “root”.&lt;/p&gt;
+        <description>&lt;p&gt;I have uploaded 3 Arch Linux Virtual Machines to Dropbox. One without any desktop environment (command line only), another with LXQT and a third with XFCE. You will need to create a new user since these VMs only contain the default “root” account with password “root”.&lt;!--more--&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;download-links&quot;&gt;Download Links&lt;/h2&gt;
 &lt;ul&gt;
