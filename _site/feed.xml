@@ -5,8 +5,8 @@
     <description></description>
     <link>schaazzz.github.io/</link>
     <atom:link href="schaazzz.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 30 Jun 2015 17:37:46 +0800</pubDate>
-    <lastBuildDate>Tue, 30 Jun 2015 17:37:46 +0800</lastBuildDate>
+    <pubDate>Tue, 30 Jun 2015 18:01:53 +0800</pubDate>
+    <lastBuildDate>Tue, 30 Jun 2015 18:01:53 +0800</lastBuildDate>
     <generator>Jekyll v2.4.0</generator>
     
       <item>
@@ -40,13 +40,14 @@ $ sudo  python  -m  pip  install  [package]
 $ sudo  pip  [package]
 &lt;/pre&gt;
 
-&lt;h2 id=&quot;installing-ruby-and-rails&quot;&gt;Installing Ruby and Rails:&lt;/h2&gt;
+&lt;h2 id=&quot;installing-ruby-rails-and-nodejs&quot;&gt;Installing Ruby, Rails and Node.js:&lt;/h2&gt;
 
 &lt;pre&gt;
 $ sudo  pacman  -S  ruby`  
 $ gem  install  rails
 $ gem  install  bundler
 $ gem  update
+$ sudo  install  nodejs         # Installing Node.js also fixes JavaScript issues while running Jekyll
 &lt;/pre&gt;
 
 &lt;ul&gt;

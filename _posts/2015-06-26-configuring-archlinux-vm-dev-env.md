@@ -29,7 +29,7 @@ $ sudo  python  -m  pip  install  [package]
 $ sudo  pip  [package]
 </pre>
 
-Installing Ruby and Rails:
+Installing Ruby, Rails and Node.js:
 ---
 
 <pre>
@@ -37,6 +37,7 @@ $ sudo  pacman  -S  ruby`
 $ gem  install  rails
 $ gem  install  bundler
 $ gem  update
+$ sudo  install  nodejs         # Installing Node.js also fixes JavaScript issues while running Jekyll
 </pre>
 
 - To `~/.bashrc` add the following lines and use the `$ source ~/.bashrc` command to update the environment with the new values:
