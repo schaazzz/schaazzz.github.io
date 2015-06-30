@@ -98,23 +98,69 @@
 
 </div>
             
-  <p>sudo ln -s /usr/bin/python2 /usr/bin/python
-wget https://bootstrap.pypa.io/get-pip.py<br />
-sudo python /mnt/schaazzz/projects/sandbox.local/get-pip.py<br />
-sudo python -m pip install <package>  </package></p>
+  <h2 id="installing-python">Installing Python</h2>
 
-<p>sudo pacman -S ruby
-~/.bashrc
-………+  PATH=”$(ruby -e ‘print Gem.user_dir’)/bin:$PATH)”
-………+  export GEM_HOME=$(ruby -e ‘print Gem.user_dir’)
-source ~/.bashrc</p>
+<ul>
+  <li>If Python is not already installed, install it using <code>$ pacman -S python2</code> (replace with python3 if you need Python 3).  </li>
+  <li>Create a <em>python</em> link for <em>python2</em>:</li>
+</ul>
 
-<p>note: /etc/environment is a better option: works with ssh as well</p>
+<pre>
+$ sudo  ln  -s  /usr/bin/python2  /usr/bin/python
+</pre>
 
-<p>… for SSH:
-sudo pacman -S openssh
-nano /etc/ssh/sshd_config =&gt; enable “AddressFamily any”
-sudo systemctl enable sshd.service</p>
+<ul>
+  <li>If PIP is not installed:</li>
+</ul>
+
+<pre>
+$ wget  https://bootstrap.pypa.io/get-pip.py  
+$ sudo  python  get-pip.py  
+</pre>
+
+<ul>
+  <li>PIP can be invoked in one of the following ways:</li>
+</ul>
+
+<pre>
+$ sudo  python  -m  pip  install  [package]  
+$ sudo  pip  [package]
+</pre>
+
+<h2 id="installing-ruby-and-rails">Installing Ruby and Rails:</h2>
+
+<pre>
+$ sudo  pacman  -S  ruby`  
+$ gem  install  rails
+$ gem  install  bundler
+$ gem  update
+</pre>
+
+<ul>
+  <li>To <code>~/.bashrc</code> add the following lines and use the <code>$ source ~/.bashrc</code> command to update the environment with the new values:</li>
+</ul>
+
+<pre>
+PATH="$(ruby -e 'print Gem.user_dir')/bin:$PATH)"
+export GEM_HOME=$(ruby -e 'print Gem.user_dir')
+</pre>
+
+<ul>
+  <li>If you plan to SSH to this machine, the <code>/etc/environment</code> file is a better option than <code>~/.bashrc</code>:</li>
+</ul>
+
+<pre>
+PATH="/home/schaazzz/.gem/ruby/2.2.0/bin":$PATH
+GEM_HOME="/home/schaazzz/.gem/ruby/2.2.0"
+</pre>
+
+<h2 id="installing-and-configuring-ssh">Installing and Configuring SSH:</h2>
+
+<pre>
+$ sudo  pacman  -S  openssh
+$ nano  /etc/ssh/sshd_config         # Enable "AddressFamily any"
+$ sudo  systemctl  enable  sshd.service
+</pre>
 
     
 <div class="share-btns">
@@ -188,25 +234,25 @@ sudo systemctl enable sshd.service</p>
   <li><strong><a href="https://dl.dropboxusercontent.com/u/102452388/schaazzz.archlinux.64.vm.xfce.7z">Arch Linux VM - XFCE</a></strong><br />
 <em>Login as root from the XFCE login prompt, open a command prompt and create a new user.</em>  </li>
   <li><strong><a href="https://dl.dropboxusercontent.com/u/102452388/schaazzz.archlinux.64.vm.lxqt.7z">Arch Linux VM - LXQT</a></strong><br />
-<em>The login prompt you’ll see doesn’t allow root login by default, switch to a terminal using ‘Ctrl+Alt+F2’ and login as root and create a new user.</em>  </li>
+<em>The login prompt you’ll see doesn’t allow root login by default, switch to a terminal using <code>Ctrl+Alt+F2</code> and login as root and create a new user.</em>  </li>
 </ul>
 
 <h2 id="creating-a-new-user">Creating a New User:</h2>
 
 <pre>
-$ useradd [username]
-$ passwd [username]
-$ mkdir /home/[username]
-$ chown -R [username]:[username] /home/[username]
+$ useradd  [username]
+$ passwd  [username]
+$ mkdir  /home/[username]
+$ chown  -R  [username]:[username] /home/[username]
 </pre>
 
 <p>…for example:</p>
 
 <pre>
-$ useradd tux
-$ passwd tux
-$ mkdir /home/tux
-$ chown -R tux:tux /home/tux
+$ useradd  tux
+$ passwd  tux
+$ mkdir  /home/tux
+$ chown  -R  tux:tux  /home/tux
 </pre>
 
 <h2 id="adding-a-user-to-sudoers">Adding a User to SUDOers</h2>

@@ -5,29 +5,75 @@
     <description></description>
     <link>schaazzz.github.io/</link>
     <atom:link href="schaazzz.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 30 Jun 2015 16:23:12 +0800</pubDate>
-    <lastBuildDate>Tue, 30 Jun 2015 16:23:12 +0800</lastBuildDate>
+    <pubDate>Tue, 30 Jun 2015 17:37:46 +0800</pubDate>
+    <lastBuildDate>Tue, 30 Jun 2015 17:37:46 +0800</lastBuildDate>
     <generator>Jekyll v2.4.0</generator>
     
       <item>
         <title>Configuring Your Arch Linux VM for Development</title>
-        <description>&lt;p&gt;sudo ln -s /usr/bin/python2 /usr/bin/python
-wget https://bootstrap.pypa.io/get-pip.py&lt;br /&gt;
-sudo python /mnt/schaazzz/projects/sandbox.local/get-pip.py&lt;br /&gt;
-sudo python -m pip install &lt;package&gt;  &lt;/package&gt;&lt;/p&gt;
+        <description>&lt;h2 id=&quot;installing-python&quot;&gt;Installing Python&lt;/h2&gt;
 
-&lt;p&gt;sudo pacman -S ruby
-~/.bashrc
-………+  PATH=”$(ruby -e ‘print Gem.user_dir’)/bin:$PATH)”
-………+  export GEM_HOME=$(ruby -e ‘print Gem.user_dir’)
-source ~/.bashrc&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;If Python is not already installed, install it using &lt;code&gt;$ pacman -S python2&lt;/code&gt; (replace with python3 if you need Python 3).  &lt;/li&gt;
+  &lt;li&gt;Create a &lt;em&gt;python&lt;/em&gt; link for &lt;em&gt;python2&lt;/em&gt;:&lt;/li&gt;
+&lt;/ul&gt;
 
-&lt;p&gt;note: /etc/environment is a better option: works with ssh as well&lt;/p&gt;
+&lt;pre&gt;
+$ sudo  ln  -s  /usr/bin/python2  /usr/bin/python
+&lt;/pre&gt;
 
-&lt;p&gt;… for SSH:
-sudo pacman -S openssh
-nano /etc/ssh/sshd_config =&amp;gt; enable “AddressFamily any”
-sudo systemctl enable sshd.service&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;If PIP is not installed:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;
+$ wget  https://bootstrap.pypa.io/get-pip.py  
+$ sudo  python  get-pip.py  
+&lt;/pre&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;PIP can be invoked in one of the following ways:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;
+$ sudo  python  -m  pip  install  [package]  
+$ sudo  pip  [package]
+&lt;/pre&gt;
+
+&lt;h2 id=&quot;installing-ruby-and-rails&quot;&gt;Installing Ruby and Rails:&lt;/h2&gt;
+
+&lt;pre&gt;
+$ sudo  pacman  -S  ruby`  
+$ gem  install  rails
+$ gem  install  bundler
+$ gem  update
+&lt;/pre&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;To &lt;code&gt;~/.bashrc&lt;/code&gt; add the following lines and use the &lt;code&gt;$ source ~/.bashrc&lt;/code&gt; command to update the environment with the new values:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;
+PATH=&quot;$(ruby -e &#39;print Gem.user_dir&#39;)/bin:$PATH)&quot;
+export GEM_HOME=$(ruby -e &#39;print Gem.user_dir&#39;)
+&lt;/pre&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;If you plan to SSH to this machine, the &lt;code&gt;/etc/environment&lt;/code&gt; file is a better option than &lt;code&gt;~/.bashrc&lt;/code&gt;:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;
+PATH=&quot;/home/schaazzz/.gem/ruby/2.2.0/bin&quot;:$PATH
+GEM_HOME=&quot;/home/schaazzz/.gem/ruby/2.2.0&quot;
+&lt;/pre&gt;
+
+&lt;h2 id=&quot;installing-and-configuring-ssh&quot;&gt;Installing and Configuring SSH:&lt;/h2&gt;
+
+&lt;pre&gt;
+$ sudo  pacman  -S  openssh
+$ nano  /etc/ssh/sshd_config         # Enable &quot;AddressFamily any&quot;
+$ sudo  systemctl  enable  sshd.service
+&lt;/pre&gt;
 </description>
         <pubDate>Fri, 26 Jun 2015 00:00:00 +0800</pubDate>
         <link>schaazzz.github.io/configuring-archlinux-vm-dev-env</link>
@@ -62,25 +108,25 @@ sudo systemctl enable sshd.service&lt;/p&gt;
   &lt;li&gt;&lt;strong&gt;&lt;a href=&quot;https://dl.dropboxusercontent.com/u/102452388/schaazzz.archlinux.64.vm.xfce.7z&quot;&gt;Arch Linux VM - XFCE&lt;/a&gt;&lt;/strong&gt;&lt;br /&gt;
 &lt;em&gt;Login as root from the XFCE login prompt, open a command prompt and create a new user.&lt;/em&gt;  &lt;/li&gt;
   &lt;li&gt;&lt;strong&gt;&lt;a href=&quot;https://dl.dropboxusercontent.com/u/102452388/schaazzz.archlinux.64.vm.lxqt.7z&quot;&gt;Arch Linux VM - LXQT&lt;/a&gt;&lt;/strong&gt;&lt;br /&gt;
-&lt;em&gt;The login prompt you’ll see doesn’t allow root login by default, switch to a terminal using ‘Ctrl+Alt+F2’ and login as root and create a new user.&lt;/em&gt;  &lt;/li&gt;
+&lt;em&gt;The login prompt you’ll see doesn’t allow root login by default, switch to a terminal using &lt;code&gt;Ctrl+Alt+F2&lt;/code&gt; and login as root and create a new user.&lt;/em&gt;  &lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id=&quot;creating-a-new-user&quot;&gt;Creating a New User:&lt;/h2&gt;
 
 &lt;pre&gt;
-$ useradd [username]
-$ passwd [username]
-$ mkdir /home/[username]
-$ chown -R [username]:[username] /home/[username]
+$ useradd  [username]
+$ passwd  [username]
+$ mkdir  /home/[username]
+$ chown  -R  [username]:[username] /home/[username]
 &lt;/pre&gt;
 
 &lt;p&gt;…for example:&lt;/p&gt;
 
 &lt;pre&gt;
-$ useradd tux
-$ passwd tux
-$ mkdir /home/tux
-$ chown -R tux:tux /home/tux
+$ useradd  tux
+$ passwd  tux
+$ mkdir  /home/tux
+$ chown  -R  tux:tux  /home/tux
 &lt;/pre&gt;
 
 &lt;h2 id=&quot;adding-a-user-to-sudoers&quot;&gt;Adding a User to SUDOers&lt;/h2&gt;

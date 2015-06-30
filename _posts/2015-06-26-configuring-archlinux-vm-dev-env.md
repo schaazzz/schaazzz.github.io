@@ -5,20 +5,59 @@ author: Shahzeb Ihsan
 tags: virtualbox virtualmachine archlinux linux development python ruby ssh
 ---
 
-sudo ln -s /usr/bin/python2 /usr/bin/python
-wget https://bootstrap.pypa.io/get-pip.py  
-sudo python /mnt/schaazzz/projects/sandbox.local/get-pip.py  
-sudo python -m pip install <package>  
+Installing Python
+---
 
-sudo pacman -S ruby
-~/.bashrc
-.........+  PATH="$(ruby -e 'print Gem.user_dir')/bin:$PATH)"
-.........+  export GEM_HOME=$(ruby -e 'print Gem.user_dir')
-source ~/.bashrc
+- If Python is not already installed, install it using `$ pacman -S python2` (replace with python3 if you need Python 3).  
+- Create a _python_ link for _python2_:
 
-note: /etc/environment is a better option: works with ssh as well
+<pre>
+$ sudo  ln  -s  /usr/bin/python2  /usr/bin/python
+</pre>
 
-... for SSH:
-sudo pacman -S openssh
-nano /etc/ssh/sshd_config => enable "AddressFamily any"
-sudo systemctl enable sshd.service
+- If PIP is not installed:
+
+<pre>
+$ wget  https://bootstrap.pypa.io/get-pip.py  
+$ sudo  python  get-pip.py  
+</pre>
+
+- PIP can be invoked in one of the following ways:
+
+<pre>
+$ sudo  python  -m  pip  install  [package]  
+$ sudo  pip  [package]
+</pre>
+
+Installing Ruby and Rails:
+---
+
+<pre>
+$ sudo  pacman  -S  ruby`  
+$ gem  install  rails
+$ gem  install  bundler
+$ gem  update
+</pre>
+
+- To `~/.bashrc` add the following lines and use the `$ source ~/.bashrc` command to update the environment with the new values:
+
+<pre>
+PATH="$(ruby -e 'print Gem.user_dir')/bin:$PATH)"
+export GEM_HOME=$(ruby -e 'print Gem.user_dir')
+</pre>
+
+- If you plan to SSH to this machine, the `/etc/environment` file is a better option than `~/.bashrc`:
+
+<pre>
+PATH="/home/schaazzz/.gem/ruby/2.2.0/bin":$PATH
+GEM_HOME="/home/schaazzz/.gem/ruby/2.2.0"
+</pre>
+
+Installing and Configuring SSH:
+---
+
+<pre>
+$ sudo  pacman  -S  openssh
+$ nano  /etc/ssh/sshd_config         # Enable "AddressFamily any"
+$ sudo  systemctl  enable  sshd.service
+</pre>

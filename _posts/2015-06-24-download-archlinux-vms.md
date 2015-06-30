@@ -13,25 +13,25 @@ Download Links
 - **[Arch Linux VM - XFCE](https://dl.dropboxusercontent.com/u/102452388/schaazzz.archlinux.64.vm.xfce.7z)**  
 _Login as root from the XFCE login prompt, open a command prompt and create a new user._  
 - **[Arch Linux VM - LXQT](https://dl.dropboxusercontent.com/u/102452388/schaazzz.archlinux.64.vm.lxqt.7z)**  
-_The login prompt you'll see doesn't allow root login by default, switch to a terminal using 'Ctrl+Alt+F2' and login as root and create a new user._  
+_The login prompt you'll see doesn't allow root login by default, switch to a terminal using `Ctrl+Alt+F2` and login as root and create a new user._  
 
 Creating a New User:
 ---
 
 <pre>
-$ useradd [username]
-$ passwd [username]
-$ mkdir /home/[username]
-$ chown -R [username]:[username] /home/[username]
+$ useradd  [username]
+$ passwd  [username]
+$ mkdir  /home/[username]
+$ chown  -R  [username]:[username] /home/[username]
 </pre>
 
 ...for example:
 
 <pre>
-$ useradd tux
-$ passwd tux
-$ mkdir /home/tux
-$ chown -R tux:tux /home/tux
+$ useradd  tux
+$ passwd  tux
+$ mkdir  /home/tux
+$ chown  -R  tux:tux  /home/tux
 </pre>
 
 Adding a User to SUDOers
