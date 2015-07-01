@@ -5,7 +5,7 @@ author: Shahzeb Ihsan
 tags: chrome app development js css html
 ---
 
-A great tutorial for building a packaged Chrome app is available in this [Google Code Lab](https://developer.chrome.com/apps/app_codelab_intro) and I used it as a starting point when I was working on my very first Chrome app, [Simple TCP Client](https://github.com/schaazzz/simple_tcp_client) -- BUT.....
+A great tutorial for building a packaged Chrome app is available in this [Google Code Lab](https://developer.chrome.com/apps/app_codelab_intro) and I used it as a starting point when I was working on my very first Chrome app, [Simple TCP Client](https://github.com/schaazzz/simple_tcp_client) -- BUT.....<!--more-->
 
 .....I found the example code in that code lab a little complex for a complete n00b such as myself, so in case you feel the same way, I hope you find the [following tutorial useful](http://schaazzz.github.io/chrome_todo).
 
