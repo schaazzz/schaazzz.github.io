@@ -5,7 +5,7 @@ author: Shahzeb Ihsan
 tags: virtualbox virtualmachine archlinux linux development bash script
 ---
 
-Some recurring issues I've had with VirtualBox and Arch Linux and their solutions. This {TBD} bash script implements all these solutions.
+Some recurring issues I've had with VirtualBox and Arch Linux and their solutions. This {TBD} bash script implements all these solutions. <!--more-->
 
 VM's Date/Time Out of Sync
 ---
