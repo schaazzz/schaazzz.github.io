@@ -5,7 +5,7 @@ author: Shahzeb Ihsan
 tags: virtualbox virtualmachine archlinux linux development
 ---
 
-I have uploaded 3 Arch Linux Virtual Machines to Dropbox. One without any desktop environment (command line only), another with LXQT and a third with XFCE. You will need to create a new user since these VMs only contain the default "root" account with password "root".<!--more-->
+I have uploaded 3 Arch Linux Virtual Machines to Dropbox. One without any desktop environment (command line only), another with LXQT and a third with XFCE. You will need to create a new user since these VMs only contain the default "root" account with password "root". If you'd rather install Arch Linux on VirtualBox from scratch, go [here]({{ site.baseurl }}/installing-arch-on-vbox/). <!--more-->
 
 Download Links
 ---

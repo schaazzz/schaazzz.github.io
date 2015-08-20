@@ -63,19 +63,19 @@ For login shells, Bash searches for & executes whichever script it finds in the 
 
 - __/etc/environment__: Environment variables added here are always available in all types of sessions
 
-### Interactive/Non-login (e.g. local terminal):
+<custom0>Interactive/Non-login (e.g. local terminal)</custom0>:
 
 - __/etc/bash.bashrc__
 - __~/.bashrc__
 
-### Interactive/Login (e.g. virtual terminals opened using Ctrl-Alt-Fn or `tmux`):
+<custom0>Interactive/Login (e.g. virtual terminals opened using Ctrl-Alt-Fn or `tmux`)</custom0>:
 
 - __/etc/profile__
 - __/etc/profile.d/*.sh__
 - __/etc/bash.bashrc__
 - __~/.bash_profile__: or ~/.bash_login or ~/.profile (whichever you prefer)
 
-### For SSH:
+<custom0>For SSH</custom0>:
 
 - __$BASH_ENV__
 - __/etc/profile__

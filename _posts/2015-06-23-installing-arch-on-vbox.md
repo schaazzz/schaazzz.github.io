@@ -5,35 +5,34 @@ author: Shahzeb Ihsan
 tags: virtualbox virtualmachine archlinux linux development
 ---
 
-Arch Linux has to be installed manually since the official [Arch Linux ISO](https://www.archlinux.org/download/) doesn't contain an installer, additionally, no packages are included in the ISO, so a working internet connection is required during installation. <!--more-->
+Arch Linux has to be installed manually since the official [Arch Linux ISO](https://www.archlinux.org/download/) doesn't contain an installer, additionally, no packages are included in the ISO, so a working internet connection is required during installation. If you'd rather just download a pre-configured Arch Linux VM, go [here]({{ site.baseurl }}/download-archlinux-vms/). <!--more-->
 
-Most of the information below can be found in the [official installation guide](https://wiki.archlinux.org/index.php/Installation_guide) but some other information requires some Googling and a little bit of digging around on the Arch Linux wiki.
+Most of the information below can be found in the [official installation guide](https://wiki.archlinux.org/index.php/Installation_guide) but some other information requires some Googling and a little bit of digging around on the Arch Linux wiki and forums.
 
 Virtual Machine Configuration
 ---
 
-Create a new virtual machine in VirtualBox for Arch Linux (sample configuration shown below). Once the VM is created add the Arch Linux ISO to the CD/DVD drive.
+Create a new virtual machine in VirtualBox for Arch Linux (sample configuration shown below). Once the VM is created, add the Arch Linux ISO to the CD/DVD drive.
 
 ![Virtual Machine Configuration]({{ site.baseurl }}/public/images/vm_config.png){: .center-image }  
 
-Configuration of the highlighted settings in the screenshot below are important and the rest are optional. Arch Linux can run on a pretty low memory configuration so you can set the size of the display and base memories according to your preferences.  
+Configuration of the highlighted settings in the screenshot below are important and the rest are optional. Arch Linux can run on a pretty low memory configuration so you can set the size of the display and base memories according to your preference.  
 
 For storage, I configured a "dynamically allocated" 8.0 GB hard drive image since I wanted to upload the resulting VMs to Dropbox, but I would recommend using a "fixed size" hard drive if you have space to spare on your host machine.  
 
-The network settings are important for installation of Arch Linux. At a minimum, you need to bridge your host machine's network interface (which is connected to the internet) with your VM as show in the following image:  
+Network settings are important: at a minimum, you need to bridge your host machine's network interface (which is connected to the internet) with your VM as shown in the following image:  
 
 ![Virtual Machine Configuration - Network]({{ site.baseurl }}/public/images/vm_config_network.png){: .center-image }  
 
-In case you would like any folders from your host machine to be accessible in your VM, the simplest way is to add them to the "Machine Folders" section under "Shared Folders" but do not selec the "Auto-mount" option otherwise they will only be accessible as root.
+In case you would like any folders from your host machine to be accessible in your VM, the simplest way is to add them to the "Machine Folders" section under "Shared Folders" but do not select the "Auto-mount" option otherwise they will only be accessible as root ([I've since moved to using __sshfs__ for mounting my Windows host machine folders]({{ site.baseurl }}/using-sshfs/)).
 
-Installing Arch Linux
----
+## Installing Arch Linux
 
 Now that the VM has been created with the ISO already _inserted_, start the virtual machine <del>and login with user ID and password "root"</del>.  
 
 <custom0>Partitioning the VM's Hard Drive</custom0>  
 
-You can [partition the hard drive](https://wiki.archlinux.org/index.php/Partitioning) using either a [single root partition](https://wiki.archlinux.org/index.php/Partitioning#Single_root_partition) or [discrete partitions](https://wiki.archlinux.org/index.php/Partitioning#Discrete_partitions). I've chosen a mixture of the 2 partitioning schemes, 200MB as /boot for installing GRUB, 1024MB swap file and the rest allocated as a single root partition.  
+You can [partition the hard drive](https://wiki.archlinux.org/index.php/Partitioning) using either a [single root partition](https://wiki.archlinux.org/index.php/Partitioning#Single_root_partition) or [discrete partitions](https://wiki.archlinux.org/index.php/Partitioning#Discrete_partitions). I've chosen a mixture of the 2 partitioning schemes: 200MB as /boot for installing GRUB, 1024MB swap file and the rest allocated as a single root partition.  
 
 - Let's use the `lsblk` command to take a look at all the available storage devices:<br>
 
@@ -49,7 +48,7 @@ loop2              7:2    0    256M   0  loop
 └─arch_airootfs  254:0    0     32G   0  dm    /  
 </pre>
 
-- As you can seen in the example above, in my case, _"sda"_ was the VM's hard drive image. We can find out a bit more about "sda" using `parted  /dev/sda  print`:<br>  
+- In the example above, _"sda"_ is the VM's hard drive image. We can find out a bit more about "sda" using `parted  /dev/sda  print`:<br>  
 
 <pre>
 root@archiso ~ # parted  /dev/sda  print
@@ -135,10 +134,9 @@ And finally, generate _"fstab"_:
 root@archiso ~ # genfstab  -U  -p  /mnt  >>  /mnt/etc/fstab  
 </pre>
 
-Chroot into Your Newly Installed Base System
----
+## Chroot into Your Newly Installed Base System
 
-- Since our Arch Linux system is now installed we can _chroot_ into and configure it...
+- Since our Arch Linux system is now installed, we can _chroot_ into and configure it...
 
 <pre>
 root@archiso ~ # arch-chroot  /mnt  /bin/bash  
@@ -177,10 +175,9 @@ root@archiso ~ # umount  -R  /mnt
 root@archiso ~ # reboot  
 </pre>
 
-Network Configuration
----
+## Network Configuration
 
-Once you restart your VM (you can now login as the new user you created above) and boot into your shiny new Arch Linux installation, you'll realize that the network doesn't work. Even though the network out-of-the-box in the installer, for some reason, it has to be configured from scratch now :angry:. I find this _feature_ <del>very strange</del> extremely annoying and I've seen this in other distros as well, even in some with fancy Live CDs. I wonder why the network configuration is not copied during installation or is it a step that I've missed during installation?
+After you restart your VM (you can now login as the new user you created above) and boot into your shiny new Arch Linux installation, you'll realize that the network doesn't work. Even though the network worked out-of-the-box in the ISO, for some reason, it has to be configured from scratch now :angry:. I find this _feature_ <del>very strange</del> extremely annoying. I've seen this in other distros as well, even in some with fancy Live CDs. I wonder why the network configuration is not copied during installation (did I miss something during installation?).
 
 - The following network configuration is based on the VM's network configuration shown above. `enp0s3` is the bridged network adapter and `ensp0s8` is the host only network. You need to create network files for both interfaces, e.g. `sudo nano /etc/systemd/network/enp0s3.network` and `sudo nano /etc/systemd/network/enp0s8.network`. The contents of these files for my installation are shown below:
 
@@ -247,17 +244,16 @@ $ sudo  pacman  -Syu
 Installing VirtualBox Guest Additions
 ---
 
-This is required if you want to mount shared folders using _vboxsf_ or would like to share your VM's clipboard with your host machine or vice-versa.
+This is required if you want to auto-resize the guest display, mount shared folders using _vboxsf_ or would like to share your VM's clipboard with your host machine or vice-versa.
 
 <pre>
 $ sudo  pacman  -S  virtualbox-guest-modules  virtualbox-guest-utils  
 $ sudo  modprobe  -a  vboxguest  vboxsf  vboxvideo  
 </pre>
 
-Installing LXQT
----
+## Installing LXQT
 
-This step is only required if you want to install LXQT (which I prefer over XFCE). In case you would like to use XFCE, you move on to the next section which lists the steps for installing XFCE.
+This step is only required if you want to install LXQT (which I prefer over XFCE). In case you would like to use XFCE, you can move on to the next section which lists the steps for installing XFCE.
 
 - Let's download and install the LXQT program group, OpenBox (LXQT's default window manager), OpenBox Configuration Utility and SDDM (LXQT's preferred display manager)
 
@@ -265,7 +261,7 @@ This step is only required if you want to install LXQT (which I prefer over XFCE
 $ pacman  -S  lxqt  openbox  obconf  sddm  
 </pre>
 
-- We still need to install a couple of more packages before we can start LXQT. XFCE4 terminal and LXTerminal are optional, you can install another terminal of your choice.
+- We still need to install a couple of more packages before we can start LXQT. XFCE4 terminal and LXTerminal are optional (you can install another terminal of your choice).
 
 <pre>
 $ sudo  pacman  -S  xorg-server-utils  xorg-xinit  gnome-themes-standard  xfce4-terminal  lxterminal
@@ -283,8 +279,7 @@ $ systemctl  enable  sddm.service
 
 - Now you can start LXQT by executing `startx`. Next time you restart your VM, you should see a graphical login manager and once you log in, LXQT should start automatically.
 
-Installing XFCE
----
+## Installing XFCE
 
 Since Arch Linux's preferred desktop manager is XFCE, it is really easy to install. Just install the XFCE program group, XORG and LXDM (Arch Linux's recommend display manager for XFCE). Afterwards, enable the display manager service and then you can start XFCE. Next time you restart your VM, you should see a graphical login manager and once you log in, XFCE should start automatically.
 
